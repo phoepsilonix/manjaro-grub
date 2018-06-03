@@ -1,0 +1,320 @@
+# Based on the file created for Arch Linux by:
+# Tobias Powalowski <tpowa@archlinux.org>
+# Ronald van Haren <ronald.archlinux.org>
+# Keshav Padram <(the.ridikulus.rat) (aatt) (gemmaeiil) (ddoott) (ccoomm)>
+
+# Maintainer: Philip Mueller <philm|manjaro|org>
+# Maintainer: Guinux <nuxgui|gmail|com>
+
+_pkgver="2.03"
+_GRUB_GIT_TAG="2.03"
+_SNAPSHOT="cda0a857dd7a27cd5d621747464bfe71e8727fff"
+_SNAPSHOT_EXTRAS="f2a079441939eee7251bf141986cdd78946e1d20"
+
+_UNIFONT_VER="10.0.06"
+
+[[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
+[[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
+
+pkgname="grub"
+pkgdesc="GNU GRand Unified Bootloader (2)"
+pkgver=2.03.0
+pkgrel=7.1
+url="https://www.gnu.org/software/grub/"
+arch=('x86_64' 'i686')
+license=('GPL3')
+backup=('boot/grub/grub.cfg' 'etc/default/grub' 'etc/grub.d/40_custom')
+install="${pkgname}.install"
+options=('!makeflags')
+
+conflicts=('grub-common' 'grub-bios' "grub-efi-${_EFI_ARCH}" 'grub-legacy')
+replaces=('grub-common' 'grub-bios' "grub-efi-${_EFI_ARCH}")
+provides=('grub-common' 'grub-bios' "grub-efi-${_EFI_ARCH}")
+
+makedepends=('git' 'rsync' 'xz' 'freetype2' 'ttf-dejavu' 'python' 'autogen'
+             'texinfo' 'help2man' 'gettext' 'device-mapper' 'fuse')
+depends=('sh' 'xz' 'gettext' 'device-mapper')
+optdepends=('freetype2: For grub-mkfont usage'
+            'fuse: For grub-mount usage'
+            'dosfstools: For grub-mkrescue FAT FS and EFI support' 
+            'efibootmgr: For grub-install EFI support'
+            'libisoburn: Provides xorriso for generating grub rescue iso using grub-mkrescue'
+            'os-prober: To detect other OSes when generating grub.cfg in BIOS systems'
+            'mtools: For grub-mkrescue FAT FS support')
+
+source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG}"
+        "grub-${pkgver}-${pkgrel}.tar.gz::http://git.savannah.gnu.org/cgit/grub.git/snapshot/grub-${_SNAPSHOT}.tar.gz"
+        "grub-extras-${_pkgver}-${pkgrel}.tar.gz::http://git.savannah.gnu.org/cgit/grub-extras.git/snapshot/grub-extras-${_SNAPSHOT_EXTRAS}.tar.gz"
+        "http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"
+        #"http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz.sig"
+        'grub-revert-6400613.patch'
+        'grub-proper-51be337.patch'
+        'grub-export-path.patch'
+        'grub-add-GRUB_COLOR_variables.patch'
+        'grub-manjaro-modifications.patch'
+        'grub-use-efivarfs.patch'
+        'grub-freetype-pkg-config.patch'
+        'grub-freetype-capitalise-variables.patch'
+        'background.png'
+        'grub.default'
+        'grub.cfg'
+        'update-grub'
+        "${pkgname}.hook")
+
+sha256sums=('56488f3a773de30c45f605befcfdc35a11523faa15dbc2e31024db7267983258'
+            '2844601914cea6b1231eca0104853a93c4d67a5209933a0766f1475953300646'
+            '0d81571fc519573057b7641d26a31ead55cc0b02a931589fb346a3a534c3dcc1'
+            '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
+            '3a2a930b6bd0ffe006027c5977ed87b37d6023865c02b2dd618a0314b4fe5078'
+            '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
+            'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
+            'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
+            '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
+            'dafc902a6dc51785cf0a29652ba36c00e3893a1b2cca5f01ecd1b77732026a51'
+            '6a1e3997a719e0cfb799affa0eb9a6089bdf57feb32d04ae697ced31bfd17286'
+            '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
+            '0e37ff13f57fede9914508e0a240572ab92d7c67fb91c307043e74727f9f4fd8'
+            '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
+            '467b0101154076fee99d9574a5fb6b772a3923cc200a1f4ca08fe17be8d68111'
+            '1488d7f3924bd7385a222e3e9685cdb1ecb39f3d6f882da6b5907b898f5b8f08')
+
+#pkgver() {
+#	cd "${srcdir}/grub-${_pkgver}/"
+#	echo "$(git describe --tags)" | sed -e 's|grub.||g' -e 's|-|\.|g'
+#}
+
+prepare() {
+	mv "${srcdir}/grub-${_SNAPSHOT}/" "${srcdir}/grub-${_pkgver}/"
+	mv "${srcdir}/grub-extras-${_SNAPSHOT_EXTRAS}/" "${srcdir}/grub-extras-${_pkgver}/"
+
+	cd "${srcdir}/grub-${_pkgver}/"
+
+	# https://github.com/calamares/calamares/issues/918
+	msg "Revert commit 6400613"
+	patch -Rp1 -i "${srcdir}/grub-revert-6400613.patch"
+	echo
+
+	# https://forum.manjaro.org/t/48614/23
+	msg "Proper commit 51be337"
+	patch -Np1 -i "${srcdir}/grub-proper-51be337.patch"
+	echo
+
+	msg "Fix freetype 2.9.1 issue"
+	patch -Np1 -i "${srcdir}/grub-freetype-capitalise-variables.patch"
+	patch -Np1 -i "${srcdir}/grub-freetype-pkg-config.patch"
+	echo
+
+	# https://github.com/calamares/calamares/issues/918
+	msg "Use efivarfs modules"
+	patch -Np1 -i "${srcdir}/grub-use-efivarfs.patch"
+	echo
+
+	msg "Patch to export $PATH"
+	patch -Np1 -i "${srcdir}/grub-export-path.patch"
+	echo
+	
+	msg "Patch to enable GRUB_COLOR_* variables in grub-mkconfig"
+	## Based on http://lists.gnu.org/archive/html/grub-devel/2012-02/msg00021.html
+	patch -Np1 -i "${srcdir}/grub-add-GRUB_COLOR_variables.patch"
+	echo
+
+	msg "Patch to include Manjaro Linux Modifications"
+	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
+	echo
+	
+	msg "Fix DejaVuSans.ttf location so that grub-mkfont can create *.pf2 files for starfield theme"
+	sed 's|/usr/share/fonts/dejavu|/usr/share/fonts/dejavu /usr/share/fonts/TTF|g' -i "${srcdir}/grub-${_pkgver}/configure.ac"
+	
+	# msg "autogen.sh requires python (2/3). since bzr is in makedepends, use python2 and no need to pull python3"
+	# sed 's|python |python2 |g' -i "${srcdir}/grub-${_pkgver}/autogen.sh"
+	
+	msg "Pull in latest language files"
+	./linguas.sh
+	echo
+	
+	msg "Remove not working langs which need LC_ALL=C.UTF-8"
+	sed -e 's#en@cyrillic en@greek##g' -i "${srcdir}/grub-${_pkgver}/po/LINGUAS"
+	
+	msg "Avoid problem with unifont during compile of grub, http://savannah.gnu.org/bugs/?40330 and https://bugs.archlinux.org/task/37847"
+	cp "${srcdir}/unifont-${_UNIFONT_VER}.bdf" "${srcdir}/grub-${_pkgver}/unifont.bdf"
+	
+}
+
+_build_grub-common_and_bios() {
+	
+	msg "Set ARCH dependent variables for bios build"
+	if [[ "${CARCH}" == 'x86_64' ]]; then
+		_EFIEMU="--enable-efiemu"
+	else
+		_EFIEMU="--disable-efiemu"
+	fi
+	
+	msg "Copy the source for building the bios part"
+	cp -r "${srcdir}/grub-${_pkgver}" "${srcdir}/grub-${_pkgver}-bios"
+	cd "${srcdir}/grub-${_pkgver}-bios/"
+	
+	msg "Add the grub-extra sources for bios build"
+	install -d "${srcdir}/grub-${_pkgver}-bios/grub-extras"
+	#cp -r "${srcdir}/grub-extras-${_pkgver}/915resolution" "${srcdir}/grub-${_pkgver}-bios/grub-extras/915resolution"
+	export GRUB_CONTRIB="${srcdir}/grub-${_pkgver}-bios/grub-extras/"
+	
+	msg "Unset all compiler FLAGS for bios build"
+	unset CFLAGS
+	unset CPPFLAGS
+	unset CXXFLAGS
+	unset LDFLAGS
+	unset MAKEFLAGS
+	
+	cd "${srcdir}/grub-${_pkgver}-bios/"
+	
+	msg "Run autogen.sh for bios build"
+	./autogen.sh
+	echo
+	
+	msg "Run ./configure for bios build"
+	./configure \
+		--with-platform="pc" \
+		--target="i386" \
+		"${_EFIEMU}" \
+		--enable-mm-debug \
+		--enable-nls \
+		--enable-device-mapper \
+		--enable-cache-stats \
+		--enable-boot-time \
+		--enable-grub-mkfont \
+		--enable-grub-mount \
+		--prefix="/usr" \
+		--bindir="/usr/bin" \
+		--sbindir="/usr/bin" \
+		--mandir="/usr/share/man" \
+		--infodir="/usr/share/info" \
+		--datarootdir="/usr/share" \
+		--sysconfdir="/etc" \
+	 	--program-prefix="" \
+		--with-bootdir="/boot" \
+		--with-grubdir="grub" \
+		--disable-silent-rules \
+		--disable-werror
+	echo
+	
+	msg "Run make for bios build"
+	make
+	echo
+}
+
+_build_grub-efi() {
+	
+	msg "Copy the source for building the ${_EFI_ARCH} efi part"
+	cp -r "${srcdir}/grub-${_pkgver}" "${srcdir}/grub-${_pkgver}-efi-${_EFI_ARCH}"
+	cd "${srcdir}/grub-${_pkgver}-efi-${_EFI_ARCH}/"
+	
+	msg "Unset all compiler FLAGS for ${_EFI_ARCH} efi build"
+	unset CFLAGS
+	unset CPPFLAGS
+	unset CXXFLAGS
+	unset LDFLAGS
+	unset MAKEFLAGS
+	
+	cd "${srcdir}/grub-${_pkgver}-efi-${_EFI_ARCH}/"
+	
+	msg "Run autogen.sh for ${_EFI_ARCH} efi build"
+	./autogen.sh
+	echo
+	
+	msg "Run ./configure for ${_EFI_ARCH} efi build"
+	./configure \
+		--with-platform="efi" \
+		--target="${_EFI_ARCH}" \
+		--disable-efiemu \
+		--enable-mm-debug \
+		--enable-nls \
+		--enable-device-mapper \
+		--enable-cache-stats \
+		--enable-boot-time \
+		--enable-grub-mkfont \
+		--enable-grub-mount \
+		--prefix="/usr" \
+		--bindir="/usr/bin" \
+		--sbindir="/usr/bin" \
+		--mandir="/usr/share/man" \
+		--infodir="/usr/share/info" \
+		--datarootdir="/usr/share" \
+		--sysconfdir="/etc" \
+		--program-prefix="" \
+		--with-bootdir="/boot" \
+		--with-grubdir="grub" \
+		--disable-silent-rules \
+		--disable-werror
+	echo
+	
+	msg "Run make for ${_EFI_ARCH} efi build"
+	make
+	echo
+	
+}
+
+build() {
+	
+	cd "${srcdir}/grub-${_pkgver}/"
+	
+	msg "Build grub bios stuff"
+	_build_grub-common_and_bios
+	echo
+	
+	msg "Build grub ${_EFI_ARCH} efi stuff"
+	_build_grub-efi
+	echo
+	
+}
+
+_package_grub-common_and_bios() {
+	
+	cd "${srcdir}/grub-${_pkgver}-bios/"
+	
+	msg "Run make install for bios build"
+	make DESTDIR="${pkgdir}/" bashcompletiondir="/usr/share/bash-completion/completions" install
+	echo
+	
+	msg "Remove gdb debugging related files for bios build"
+	rm -f "${pkgdir}/usr/lib/grub/i386-pc"/*.module || true
+	rm -f "${pkgdir}/usr/lib/grub/i386-pc"/*.image || true
+	rm -f "${pkgdir}/usr/lib/grub/i386-pc"/{kernel.exec,gdb_grub,gmodule.pl} || true
+	
+	msg "Install /etc/default/grub (used by grub-mkconfig)"
+	install -D -m0644 "${srcdir}/grub.default" "${pkgdir}/etc/default/grub"
+	
+	msg "Install grub.cfg for backup array"
+	install -D -m0644 "${srcdir}/grub.cfg" "${pkgdir}/boot/grub/grub.cfg"
+
+	msg "Install update-grub"
+	install -Dm755 "${srcdir}/update-grub" "${pkgdir}/usr/bin/update-grub"
+
+	msg "Install grub background"
+	install -Dm644 "${srcdir}/background.png" "${pkgdir}/usr/share/grub/background.png"	
+}
+
+_package_grub-efi() {
+	
+	cd "${srcdir}/grub-${_pkgver}-efi-${_EFI_ARCH}/"
+	
+	msg "Run make install for ${_EFI_ARCH} efi build"
+	make DESTDIR="${pkgdir}/" bashcompletiondir="/usr/share/bash-completion/completions" install
+	echo
+	
+	msg "Remove gdb debugging related files for ${_EFI_ARCH} efi build"
+	rm -f "${pkgdir}/usr/lib/grub/${_EFI_ARCH}-efi"/*.module || true
+	rm -f "${pkgdir}/usr/lib/grub/${_EFI_ARCH}-efi"/*.image || true
+	rm -f "${pkgdir}/usr/lib/grub/${_EFI_ARCH}-efi"/{kernel.exec,gdb_grub,gmodule.pl} || true
+	
+}
+
+package() {
+	
+	msg "Package grub ${_EFI_ARCH} efi stuff"
+	_package_grub-efi
+	
+	msg "Package grub bios stuff"
+	_package_grub-common_and_bios
+	
+	install -D -m644 "${srcdir}/${pkgname}.hook" "${pkgdir}/usr/share/libalpm/hooks/99-${pkgname}.hook"
+}
