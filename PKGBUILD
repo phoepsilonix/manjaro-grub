@@ -55,6 +55,7 @@ source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG
         'grub-use-efivarfs.patch'
         'grub-freetype-pkg-config.patch'
         'grub-freetype-capitalise-variables.patch'
+        'grub-i386-efi.patch'
         'background.png'
         'grub.default'
         'grub.cfg'
@@ -72,6 +73,7 @@ sha256sums=('56488f3a773de30c45f605befcfdc35a11523faa15dbc2e31024db7267983258'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
             'dafc902a6dc51785cf0a29652ba36c00e3893a1b2cca5f01ecd1b77732026a51'
             '6a1e3997a719e0cfb799affa0eb9a6089bdf57feb32d04ae697ced31bfd17286'
+            'd594dd2f7f5f06c76a24c087e35666e93f1e9ae0ae90ad1419131795e9cfeb31'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
             '0e37ff13f57fede9914508e0a240572ab92d7c67fb91c307043e74727f9f4fd8'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
@@ -137,6 +139,10 @@ prepare() {
 	
 	msg "Avoid problem with unifont during compile of grub, http://savannah.gnu.org/bugs/?40330 and https://bugs.archlinux.org/task/37847"
 	cp "${srcdir}/unifont-${_UNIFONT_VER}.bdf" "${srcdir}/grub-${_pkgver}/unifont.bdf"
+
+	msg "Patch to fix EFI build on i386, https://savannah.gnu.org/bugs/?53517"
+	patch -Np1 -i "${srcdir}/grub-i386-efi.patch"
+	echo
 	
 }
 

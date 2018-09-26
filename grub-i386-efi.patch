@@ -1,0 +1,42 @@
+From c79ebcd18cf3e208e9dda5e2ae008f76c92fe451 Mon Sep 17 00:00:00 2001
+From: Leif Lindholm <leif.lindholm@linaro.org>
+Date: Mon, 9 Jul 2018 19:49:06 +0100
+Subject: i386: Don't include lib/i386/reset.c in EFI builds
+
+Commit 0ba90a7f0178 ("efi: Move grub_reboot() into kernel") broke
+the build on i386-efi - genmoddep.awk bails out with message
+  grub_reboot in reboot is duplicated in kernel
+This is because both lib/i386/reset.c and kern/efi/efi.c now provide
+this function.
+
+Rather than explicitly list each i386 platform variant in
+Makefile.core.def, include the contents of lib/i386/reset.c only when
+GRUB_MACHINE_EFI is not set.
+
+Signed-off-by: Leif Lindholm <leif.lindholm@linaro.org>
+Reviewed-by: Daniel Kiper <daniel.kiper@oracle.com>
+---
+ grub-core/lib/i386/reboot.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/grub-core/lib/i386/reboot.c b/grub-core/lib/i386/reboot.c
+index a234244..dce0b56 100644
+--- a/grub-core/lib/i386/reboot.c
++++ b/grub-core/lib/i386/reboot.c
+@@ -16,6 +16,8 @@
+  *  along with GRUB.  If not, see <http://www.gnu.org/licenses/>.
+  */
+ 
++#ifndef GRUB_MACHINE_EFI
++
+ #include <grub/relocator.h>
+ #include <grub/cpu/relocator.h>
+ #include <grub/misc.h>
+@@ -58,3 +60,5 @@ grub_reboot (void)
+ 
+   while (1);
+ }
++
++#endif /* GRUB_MACHINE_EFI */
+-- 
+cgit v1.0-41-gc330
