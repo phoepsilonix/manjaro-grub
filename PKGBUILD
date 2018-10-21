@@ -19,7 +19,7 @@ _UNIFONT_VER="10.0.06"
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
 pkgver=2.03.0
-pkgrel=8
+pkgrel=9
 url="https://www.gnu.org/software/grub/"
 arch=('x86_64' 'i686')
 license=('GPL3')
@@ -50,6 +50,7 @@ source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG
         'grub-revert-6400613.patch'
         'grub-export-path.patch'
         'grub-add-GRUB_COLOR_variables.patch'
+        'grub-gettext_quiet.patch'
         'grub-manjaro-modifications.patch'
         'grub-use-efivarfs.patch'
         'background.png'
@@ -64,6 +65,7 @@ sha256sums=('83f559c61510760ea7d8484d9609948eedfc090ae2ea9d704936b81cde9ab582'
             '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
+            '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
             'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
@@ -101,6 +103,10 @@ prepare() {
 	## Based on http://lists.gnu.org/archive/html/grub-devel/2012-02/msg00021.html
 	patch -Np1 -i "${srcdir}/grub-add-GRUB_COLOR_variables.patch"
 	echo
+
+	msg "Patch to fall back to untranslated text"
+	# If no translations are available, fall back to untranslated text.
+	patch -Np1 -i "${srcdir}/grub-gettext_quiet.patch"
 
 	msg "Patch to include Manjaro Linux Modifications"
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
