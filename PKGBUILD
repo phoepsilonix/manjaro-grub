@@ -6,8 +6,8 @@
 # Maintainer: Philip Mueller <philm|manjaro|org>
 # Maintainer: Guinux <nuxgui|gmail|com>
 
-_pkgver="2.03"
-_GRUB_GIT_TAG="2.03"
+_pkgver=2.03
+_GRUB_GIT_TAG=2.03
 _SNAPSHOT="8ada906031d9bd86547db82647f91cdf7db54fbf"
 _SNAPSHOT_EXTRAS="f2a079441939eee7251bf141986cdd78946e1d20"
 
@@ -18,8 +18,8 @@ _UNIFONT_VER="10.0.06"
 
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
-pkgver=2.03.0
-pkgrel=13
+pkgver=2.03.1
+pkgrel=1
 url="https://www.gnu.org/software/grub/"
 arch=('x86_64' 'i686')
 license=('GPL3')
@@ -163,6 +163,9 @@ prepare() {
 	
 	msg "Fix DejaVuSans.ttf location so that grub-mkfont can create *.pf2 files for starfield theme"
 	sed 's|/usr/share/fonts/dejavu|/usr/share/fonts/dejavu /usr/share/fonts/TTF|g' -i "${srcdir}/grub-${_pkgver}/configure.ac"
+
+	msg "Bump Version to ${pkgver}"
+	sed -i -e "s|${_pkgver}|${pkgver}|g" "${srcdir}/grub-${_pkgver}/configure.ac"
 	
 	msg "Pull in latest language files"
 	./linguas.sh
