@@ -19,7 +19,7 @@ _UNIFONT_VER="10.0.06"
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
 pkgver=2.03.0
-pkgrel=12
+pkgrel=13
 url="https://www.gnu.org/software/grub/"
 arch=('x86_64' 'i686')
 license=('GPL3')
@@ -139,7 +139,7 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
 	echo
 
-	msg "Add Grub-Quiet patches"
+	msg "Add Fedora patches"
 	# Disable this patch for now. Creates black screens on some Lenovo laptops   
 	#patch -Np1 -i "${srcdir}/grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch"
 	patch -Np1 -i "${srcdir}/grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"

@@ -3,6 +3,10 @@ post_install() {
     echo "Copying /boot/grub/grub.cfg.pacsave to /boot/grub/grub.cfg"
     install -D -m0644 /boot/grub/grub.cfg.pacsave /boot/grub/grub.cfg
   fi
+  if [ -f /etc/default/grub.pacsave ]; then
+    echo "Copying /etc/default/grub.pacsave to /etc/default/grub"
+    install -D -m0644 /etc/default/grub.pacsave /etc/default/grub
+  fi
 
   cat << 'EOM'
 Generating grub.cfg.example config file...
