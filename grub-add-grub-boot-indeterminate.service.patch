@@ -30,4 +30,4 @@ index 000000000..6c8dcb186
 +
 +[Service]
 +Type=oneshot
-+ExecStart=/usr/bin/grub2-editenv - incr boot_indeterminate
++ExecStart=/usr/bin/grub-editenv - incr boot_indeterminate
