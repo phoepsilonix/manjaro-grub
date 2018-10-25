@@ -19,7 +19,7 @@ _UNIFONT_VER="10.0.06"
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
 pkgver=2.03.0
-pkgrel=11
+pkgrel=12
 url="https://www.gnu.org/software/grub/"
 arch=('x86_64' 'i686')
 license=('GPL3')
@@ -67,6 +67,7 @@ source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG
         'grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch'
         'grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch'
         'grub-add-grub-boot-indeterminate.service.patch'
+        'grub-add-incr-command-to-grub-editenv.patch'
         'grub-maybe_quiet.patch'
         'grub-gettext_quiet.patch'
         'background.png'
@@ -95,6 +96,7 @@ sha256sums=('83f559c61510760ea7d8484d9609948eedfc090ae2ea9d704936b81cde9ab582'
             '42212498678d8049115cbb7363d0bdd9ba4cff48e4d1b88a6b1fa174576e6011'
             '1ab0b9da5af1e4aba25ade5cc7f496610ec7828023ad1ba0b613be535683f881'
             '1c6a56719da9369c4bdc384a837c5ebe885d023e99320dfe8e8025cc84d0b96a'
+            'aa124da42fa8e594941760065e615744dbf411f14feb73c29f4ed4b0ca5fd3e3'
             '9a0ef2efe572f3e206d8f145cb9a00098f44d41eaf396110810f6f79885bd5de'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
@@ -151,6 +153,7 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch"
 	patch -Np1 -i "${srcdir}/grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch"
 	patch -Np1 -i "${srcdir}/grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch"
+	patch -Np1 -i "${srcdir}/grub-add-incr-command-to-grub-editenv.patch"
 	patch -Np1 -i "${srcdir}/grub-maybe_quiet.patch"
 	patch -Np1 -i "${srcdir}/grub-gettext_quiet.patch"
 	patch -Np1 -i "${srcdir}/grub-add-grub-boot-indeterminate.service.patch"
