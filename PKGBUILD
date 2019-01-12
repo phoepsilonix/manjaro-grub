@@ -8,7 +8,7 @@
 
 _pkgver=2.03
 _GRUB_GIT_TAG=2.03
-_SNAPSHOT="e720eef6a69bc4acc767d9a4cf8bc939b8b98e11"
+_SNAPSHOT="386128648606a3aa6ae7108d1c9af52258202279"
 _SNAPSHOT_EXTRAS="f2a079441939eee7251bf141986cdd78946e1d20"
 
 _UNIFONT_VER="10.0.06"
@@ -18,7 +18,7 @@ _UNIFONT_VER="10.0.06"
 
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
-pkgver=2.03.2
+pkgver=2.03.3
 pkgrel=1
 url="https://www.gnu.org/software/grub/"
 arch=('x86_64' 'i686')
@@ -76,7 +76,7 @@ source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG
         'update-grub'
         "${pkgname}.hook")
 
-sha256sums=('49470b0340d68425a4ea143f4d7ed09d4a663f2b8c7a6c1f8088e0954b596557'
+sha256sums=('41480d21a48820403c02e325685303ae1bd4d5dd335efc5ef43f357693245428'
             '2844601914cea6b1231eca0104853a93c4d67a5209933a0766f1475953300646'
             '0d81571fc519573057b7641d26a31ead55cc0b02a931589fb346a3a534c3dcc1'
             '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
