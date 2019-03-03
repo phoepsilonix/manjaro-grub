@@ -8,7 +8,7 @@
 
 _pkgver=2.03
 _GRUB_GIT_TAG=2.03
-_SNAPSHOT="386128648606a3aa6ae7108d1c9af52258202279"
+_SNAPSHOT="686db9664654fd54da0e5ba136322dd9a9423930"
 _SNAPSHOT_EXTRAS="f2a079441939eee7251bf141986cdd78946e1d20"
 
 _UNIFONT_VER="10.0.06"
@@ -18,7 +18,7 @@ _UNIFONT_VER="10.0.06"
 
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
-pkgver=2.03.3
+pkgver=2.03.4
 pkgrel=1
 url="https://www.gnu.org/software/grub/"
 arch=('x86_64' 'i686')
@@ -50,6 +50,7 @@ source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG
         "http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"
         #"http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz.sig"
         'grub-revert-6400613.patch'
+        'grub-revert-3861286.patch'
         'grub-export-path.patch'
         'grub-add-GRUB_COLOR_variables.patch'
         'grub-manjaro-modifications.patch'
@@ -76,10 +77,11 @@ source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG
         'update-grub'
         "${pkgname}.hook")
 
-sha256sums=('41480d21a48820403c02e325685303ae1bd4d5dd335efc5ef43f357693245428'
+sha256sums=('4fcec56ac68a21226f9b657297d6147d6f0d67ddcfc561e4c585c73cd5126c1c'
             '2844601914cea6b1231eca0104853a93c4d67a5209933a0766f1475953300646'
             '0d81571fc519573057b7641d26a31ead55cc0b02a931589fb346a3a534c3dcc1'
             '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
+            '1ba877bf0bd89bd1040d1679e8c0123650b9a022e5ec7d44dcfde0a88ea34188'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
             'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
@@ -119,6 +121,11 @@ prepare() {
 	# https://github.com/calamares/calamares/issues/918
 	msg "Revert commit 6400613"
 	patch -Rp1 -i "${srcdir}/grub-revert-6400613.patch"
+	echo
+
+	# https://gitlab.manjaro.org/packages/core/grub/commit/01f625040cf13ed07071f7a5da5e426b130b6e70#note_11283
+	msg "Revert commit 3861286"
+	patch -Rp1 -i "${srcdir}/grub-revert-3861286.patch"
 	echo
 
 	# https://github.com/calamares/calamares/issues/918
