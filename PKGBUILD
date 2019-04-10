@@ -8,8 +8,9 @@
 
 _pkgver=2.03
 _GRUB_GIT_TAG=2.03
-_SNAPSHOT="686db9664654fd54da0e5ba136322dd9a9423930"
+_SNAPSHOT="ad4bfeec5ca4cc8479e9353c530a7e77f76d26bd"
 _SNAPSHOT_EXTRAS="f2a079441939eee7251bf141986cdd78946e1d20"
+_SNAPSHOT_GNULIB="d271f868a8df9bbec29049d01e056481b7a1a263"
 
 _UNIFONT_VER="10.0.06"
 
@@ -18,7 +19,7 @@ _UNIFONT_VER="10.0.06"
 
 pkgname="grub"
 pkgdesc="GNU GRand Unified Bootloader (2)"
-pkgver=2.03.4
+pkgver=2.03.5
 pkgrel=1
 url="https://www.gnu.org/software/grub/"
 arch=('x86_64' 'i686')
@@ -47,6 +48,7 @@ optdepends=('freetype2: For grub-mkfont usage'
 source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG}"
         "grub-${pkgver}-${pkgrel}.tar.gz::http://git.savannah.gnu.org/cgit/grub.git/snapshot/grub-${_SNAPSHOT}.tar.gz"
         "grub-extras-${_pkgver}-${pkgrel}.tar.gz::http://git.savannah.gnu.org/cgit/grub-extras.git/snapshot/grub-extras-${_SNAPSHOT_EXTRAS}.tar.gz"
+        "gnulib-${_pkgver}-${pkgrel}.tar.gz::http://git.savannah.gnu.org/cgit/gnulib.git/snapshot/gnulib-${_SNAPSHOT_GNULIB}.tar.gz"
         "http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"
         #"http://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz.sig"
         'grub-revert-6400613.patch'
@@ -77,8 +79,9 @@ source=(#"grub-${_pkgver}::git+git://git.sv.gnu.org/grub.git#tag=${_GRUB_GIT_TAG
         'update-grub'
         "${pkgname}.hook")
 
-sha256sums=('4fcec56ac68a21226f9b657297d6147d6f0d67ddcfc561e4c585c73cd5126c1c'
+sha256sums=('bad13c648ccc4811bab418506f6699e250c247786a7a535d808b4d610ce3338a'
             '2844601914cea6b1231eca0104853a93c4d67a5209933a0766f1475953300646'
+            '4e23415ae2977ffca15e07419ceff3e9334d0369eafc9e7ae2578f8dd9a4839c'
             '0d81571fc519573057b7641d26a31ead55cc0b02a931589fb346a3a534c3dcc1'
             '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
             '1ba877bf0bd89bd1040d1679e8c0123650b9a022e5ec7d44dcfde0a88ea34188'
@@ -115,6 +118,8 @@ sha256sums=('4fcec56ac68a21226f9b657297d6147d6f0d67ddcfc561e4c585c73cd5126c1c'
 prepare() {
 	mv "${srcdir}/grub-${_SNAPSHOT}/" "${srcdir}/grub-${_pkgver}/"
 	mv "${srcdir}/grub-extras-${_SNAPSHOT_EXTRAS}/" "${srcdir}/grub-extras-${_pkgver}/"
+	mv "${srcdir}/gnulib-${_SNAPSHOT_GNULIB}/" "${srcdir}/gnulib-${_pkgver}/"
+	export GNULIB_SRCDIR="${srcdir}/gnulib-${_pkgver}"
 
 	cd "${srcdir}/grub-${_pkgver}/"
 
@@ -183,7 +188,6 @@ prepare() {
 	
 	msg "Avoid problem with unifont during compile of grub, http://savannah.gnu.org/bugs/?40330 and https://bugs.archlinux.org/task/37847"
 	cp "${srcdir}/unifont-${_UNIFONT_VER}.bdf" "${srcdir}/grub-${_pkgver}/unifont.bdf"
-	
 }
 
 _build_grub-common_and_bios() {
@@ -213,8 +217,12 @@ _build_grub-common_and_bios() {
 	
 	cd "${srcdir}/grub-${_pkgver}-bios/"
 	
-	msg "Run autogen.sh for bios build"
-	./autogen.sh
+#	msg "Run autogen.sh for bios build"
+#	./autogen.sh
+#	echo
+
+	msg "Run bootstrap for bios build"
+	./bootstrap
 	echo
 	
 	msg "Run ./configure for bios build"
@@ -265,8 +273,12 @@ _build_grub-efi() {
 	
 	cd "${srcdir}/grub-${_pkgver}-efi-${_EFI_ARCH}/"
 	
-	msg "Run autogen.sh for ${_EFI_ARCH} efi build"
-	./autogen.sh
+#	msg "Run autogen.sh for ${_EFI_ARCH} efi build"
+#	./autogen.sh
+#	echo
+
+	msg "Run bootstrap for ${_EFI_ARCH} efi build"
+	./bootstrap
 	echo
 	
 	msg "Run ./configure for ${_EFI_ARCH} efi build"
