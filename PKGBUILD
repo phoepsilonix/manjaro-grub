@@ -29,12 +29,13 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.03.6
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=3
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
 backup=('etc/default/grub'
-        'etc/grub.d/40_custom')
+        'etc/grub.d/40_custom'
+        'boot/grub/grub.cfg')
 install="${pkgname}.install"
 options=('!makeflags')
 
