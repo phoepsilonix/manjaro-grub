@@ -151,6 +151,8 @@ _configure_options=(
 	--program-prefix=""
 	--with-bootdir="/boot"
 	--with-grubdir="grub"
+	--enable-quiet-boot \
+	--enable-quick-boot \
 	--disable-silent-rules
 	--disable-werror
 )
