@@ -428,6 +428,6 @@ package() {
 	chmod +s "${pkgdir}/usr/bin/grub-set-bootflag"
 
 	mkdir -p "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/"
-	install -D -m644 "${srcdir}/grub-${_pkgver}/docs/grub-boot-indeterminate.service" "${pkgdir}/usr/lib/systemd/system/grub-boot-indeterminate.service"
+	install -D -m644 "${srcdir}/grub/docs/grub-boot-indeterminate.service" "${pkgdir}/usr/lib/systemd/system/grub-boot-indeterminate.service"
 	ln -sfv '../grub-boot-indeterminate.service' "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/grub-boot-indeterminate.service"
 }
