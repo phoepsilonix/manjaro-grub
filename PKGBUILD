@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.03.6
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -364,6 +364,15 @@ _package_grub-common_and_bios() {
 
 	echo "Install /etc/default/grub (used by grub-mkconfig)..."
 	install -D -m0644 "${srcdir}/grub.default" "${pkgdir}/etc/default/grub"
+
+	msg "Install grub.cfg for backup array"
+	install -D -m0644 "${srcdir}/grub.cfg" "${pkgdir}/boot/grub/grub.cfg"
+
+	msg "Install update-grub"
+	install -Dm755 "${srcdir}/update-grub" "${pkgdir}/usr/bin/update-grub"
+
+	msg "Install grub background"
+	install -Dm644 "${srcdir}/background.png" "${pkgdir}/usr/share/grub/background.png"	
 }
 
 _package_grub-efi() {
@@ -408,4 +417,17 @@ package() {
 
 	echo "Package grub bios stuff..."
 	_package_grub-common_and_bios
+
+	install -D -m644 "${srcdir}/${pkgname}.hook" "${pkgdir}/usr/share/libalpm/hooks/99-${pkgname}.hook"
+
+	# install example files
+	mkdir -p "${pkgdir}/usr/lib/systemd/user/timers.target.wants"
+	install -D -m644 "${srcdir}/grub-${_pkgver}/docs/grub-boot-success.timer" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.timer"
+	install -D -m644 "${srcdir}/grub-${_pkgver}/docs/grub-boot-success.service" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.service"
+	ln -sfv '../grub-boot-success.timer' "${pkgdir}/usr/lib/systemd/user/timers.target.wants/grub-boot-success.timer"
+	chmod +s "${pkgdir}/usr/bin/grub-set-bootflag"
+
+	mkdir -p "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/"
+	install -D -m644 "${srcdir}/grub-${_pkgver}/docs/grub-boot-indeterminate.service" "${pkgdir}/usr/lib/systemd/system/grub-boot-indeterminate.service"
+	ln -sfv '../grub-boot-indeterminate.service' "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/grub-boot-indeterminate.service"
 }
