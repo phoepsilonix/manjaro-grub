@@ -422,8 +422,8 @@ package() {
 
 	# install example files
 	mkdir -p "${pkgdir}/usr/lib/systemd/user/timers.target.wants"
-	install -D -m644 "${srcdir}/grub-${_pkgver}/docs/grub-boot-success.timer" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.timer"
-	install -D -m644 "${srcdir}/grub-${_pkgver}/docs/grub-boot-success.service" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.service"
+	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.timer" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.timer"
+	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.service" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.service"
 	ln -sfv '../grub-boot-success.timer' "${pkgdir}/usr/lib/systemd/user/timers.target.wants/grub-boot-success.timer"
 	chmod +s "${pkgdir}/usr/bin/grub-set-bootflag"
 
