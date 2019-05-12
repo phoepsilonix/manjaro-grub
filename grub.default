@@ -2,7 +2,7 @@ GRUB_DEFAULT=saved
 GRUB_TIMEOUT=5
 GRUB_TIMEOUT_STYLE=menu
 GRUB_DISTRIBUTOR="Manjaro"
-GRUB_CMDLINE_LINUX_DEFAULT="quiet rd.udev.log-priority=3 audit=0 loglevel=3"
+GRUB_CMDLINE_LINUX_DEFAULT="quiet udev.log_priority=3 audit=0"
 GRUB_CMDLINE_LINUX=""
 
 # If you want to enable the save default function, uncomment the following
