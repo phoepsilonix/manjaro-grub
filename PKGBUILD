@@ -13,11 +13,11 @@ _IA32_EFI_IN_ARCH_X64="1"
 ## "1" to enable EMU build, "0" to disable
 _GRUB_EMU_BUILD="1"
 
-_GRUB_INT_VER="2.04~rc1"
-_GRUB_COMMIT="ce946603cf4b6ea0f990412e633085d8c71e1b29"
-_GRUB_EXTRAS_COMMIT="f2a079441939eee7251bf141986cdd78946e1d20"
-_GNULIB_COMMIT="3f14b27dec6f4a590d8ae0ffcbb7cf7714815a05"
-_UNIFONT_VER="12.0.01"
+_GRUB_INT_VER="2.04"
+_GRUB_COMMIT="2a2e10c1b39672de3d5da037a50d5c371f49b40d"
+_GRUB_EXTRAS_COMMIT="136763a4cc9ca3a4f59d05b79eede2159d6f441e"
+_GNULIB_COMMIT="9ce9be2ef0cb1180e35dfe9dfbbe90d774b374bd"
+_UNIFONT_VER="12.1.02"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
@@ -27,9 +27,9 @@ _UNIFONT_VER="12.0.01"
 
 pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
-_pkgver=2.03.6
+_pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=4
+pkgrel=1
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -101,7 +101,7 @@ source=(#"git+https://git.savannah.gnu.org/git/grub.git#tag=grub-${_pkgver}?sign
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
-            'f48450d3ca0ae0ca9f1c6e81cf1af60e5b0dfa87cc3a72520ce2ef15d54de6dd'
+            '04d652be1e28a6d464965c75c71ac84633085cd0960c2687466651c34c94bd89'
             'SKIP'
             '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
             '1ba877bf0bd89bd1040d1679e8c0123650b9a022e5ec7d44dcfde0a88ea34188'
@@ -238,7 +238,7 @@ prepare() {
 
 	echo "Avoid problem with unifont during compile of grub..."
 	# http://savannah.gnu.org/bugs/?40330 and https://bugs.archlinux.org/task/37847
-	cp "${srcdir}/unifont-${_UNIFONT_VER}.bdf" "unifont.bdf"
+	gzip -cd "${srcdir}/unifont-${_UNIFONT_VER}.bdf.gz" > "unifont.bdf"
 
 	echo "Run bootstrap..."
 	./bootstrap \
