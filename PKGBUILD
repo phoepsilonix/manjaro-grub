@@ -76,22 +76,22 @@ source=(#"git+https://git.savannah.gnu.org/git/grub.git#tag=grub-${_pkgver}?sign
         'grub-add-GRUB_COLOR_variables.patch'
         'grub-manjaro-modifications.patch'
         'grub-use-efivarfs.patch'
-        #'grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch'
-        'grub-efi-console-implement-getkeystatus-support.patch'
-        'grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch'
-        'grub-make-grub_getkeystatus-helper-function-available-ever.patch'
-        'grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch'
-        'grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch'
-        'grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch'
-        'grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch'
-        'grub-add-grub-set-bootflag-utility.patch'
-        'grub-add-auto-hide-menu-support.patch'
-        'grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch'
-        'grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch'
-        'grub-add-grub-boot-indeterminate.service.patch'
-        'grub-add-incr-command-to-grub-editenv.patch'
-        'grub-maybe_quiet.patch'
-        'grub-gettext_quiet.patch'
+        #'0000-grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch'
+        '0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch'
+        '0002-grub-efi-console-implement-getkeystatus-support.patch'
+        '0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch'
+        '0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch'
+        '0005-grub-add-grub-set-bootflag-utility.patch'
+        '0006-grub-add-auto-hide-menu-support.patch'
+        '0007-grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch'
+        '0008-grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch'
+        '0009-grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch'
+        '0010-grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch'
+        '0011-grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch'
+        '0012-grub-add-incr-command-to-grub-editenv.patch'
+        '0013-grub-add-grub-boot-indeterminate.service.patch'
+        '0001-grub-maybe_quiet.patch'
+        '0002-grub-gettext_quiet.patch'
         'background.png'
         'grub.default'
         'grub.cfg'
@@ -109,19 +109,19 @@ sha256sums=('SKIP'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
             'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
-            'b218ade00670bad6095e0284b17d85f6f92900d5ebd156a2ec1cbc5ccad92fcb'
             'd49236776e53a7ffdc5845205c94b3276b116d1f476bbccadcea1aa0a3f57b38'
+            'b218ade00670bad6095e0284b17d85f6f92900d5ebd156a2ec1cbc5ccad92fcb'
             '3803a487dce21f29bff829c391651705a9253431af5b20ca4ed9fe8f7ea7db6d'
             'efdf468c2a7a55657b7172eea2803f2fb8a3021413f475006429f69202ba540a'
-            '7e46f081c08dec87d522b8db642e55e51fe89a02b9d9bfd4760f58a7692ede4a'
-            '54a0a0591b38b82c96a6e400cd9212f8e916120701cc9d91daca56b4c185c768'
-            '05a3b96970f78a2440847d1852fa2d79586aa9a047e774f41ee862a2bcb645ca'
             '3f67b4c18e9d573a7a63543e8727dc701ebb20710770a53a415a31bc0c4721f4'
             '0579636531ee5e0bf0de489b88bd1deda678cfdfd714afef49bb62e971b3644b'
             '42212498678d8049115cbb7363d0bdd9ba4cff48e4d1b88a6b1fa174576e6011'
             '1ab0b9da5af1e4aba25ade5cc7f496610ec7828023ad1ba0b613be535683f881'
-            '1c6a56719da9369c4bdc384a837c5ebe885d023e99320dfe8e8025cc84d0b96a'
+            '7e46f081c08dec87d522b8db642e55e51fe89a02b9d9bfd4760f58a7692ede4a'
+            '54a0a0591b38b82c96a6e400cd9212f8e916120701cc9d91daca56b4c185c768'
+            '05a3b96970f78a2440847d1852fa2d79586aa9a047e774f41ee862a2bcb645ca'
             'aa124da42fa8e594941760065e615744dbf411f14feb73c29f4ed4b0ca5fd3e3'
+            '1c6a56719da9369c4bdc384a837c5ebe885d023e99320dfe8e8025cc84d0b96a'
             '9a0ef2efe572f3e206d8f145cb9a00098f44d41eaf396110810f6f79885bd5de'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
@@ -198,22 +198,25 @@ prepare() {
 
 	msg "Add Fedora patches"
 	# Disable this patch for now. Creates black screens on some Lenovo laptops   
-	#patch -Np1 -i "${srcdir}/grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch"
-	patch -Np1 -i "${srcdir}/grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
-	patch -Np1 -i "${srcdir}/grub-efi-console-implement-getkeystatus-support.patch"
-	patch -Np1 -i "${srcdir}/grub-make-grub_getkeystatus-helper-function-available-ever.patch"
-	patch -Np1 -i "${srcdir}/grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
-	patch -Np1 -i "${srcdir}/grub-add-grub-set-bootflag-utility.patch"
-	patch -Np1 -i "${srcdir}/grub-add-auto-hide-menu-support.patch"
-	patch -Np1 -i "${srcdir}/grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch"
-	patch -Np1 -i "${srcdir}/grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch"
-	patch -Np1 -i "${srcdir}/grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch"
-	patch -Np1 -i "${srcdir}/grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch"
-	patch -Np1 -i "${srcdir}/grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch"
-	patch -Np1 -i "${srcdir}/grub-add-incr-command-to-grub-editenv.patch"
-	patch -Np1 -i "${srcdir}/grub-maybe_quiet.patch"
-	patch -Np1 -i "${srcdir}/grub-gettext_quiet.patch"
-	patch -Np1 -i "${srcdir}/grub-add-grub-boot-indeterminate.service.patch"
+	#patch -Np1 -i "${srcdir}/0000-grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch"
+	patch -Np1 -i "${srcdir}/0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
+	patch -Np1 -i "${srcdir}/0002-grub-efi-console-implement-getkeystatus-support.patch"
+	patch -Np1 -i "${srcdir}/0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch"
+	patch -Np1 -i "${srcdir}/0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
+	patch -Np1 -i "${srcdir}/0005-grub-add-grub-set-bootflag-utility.patch"
+	patch -Np1 -i "${srcdir}/0006-grub-add-auto-hide-menu-support.patch"
+	patch -Np1 -i "${srcdir}/0007-grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch"
+	patch -Np1 -i "${srcdir}/0008-grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch"
+	patch -Np1 -i "${srcdir}/0009-grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch"
+	patch -Np1 -i "${srcdir}/0010-grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch"
+	patch -Np1 -i "${srcdir}/0011-grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch"
+	patch -Np1 -i "${srcdir}/0012-grub-add-incr-command-to-grub-editenv.patch"
+	patch -Np1 -i "${srcdir}/0013-grub-add-grub-boot-indeterminate.service.patch"
+
+	msg "Add Ubuntu patches"
+	patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"
+	patch -Np1 -i "${srcdir}/0002-grub-gettext_quiet.patch"
+
         # delete line due man h2m
         sed -i -e '1369d' "Makefile.util.def"
 	echo
