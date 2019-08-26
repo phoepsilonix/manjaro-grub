@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=2.1
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -152,8 +152,8 @@ _configure_options=(
 	--program-prefix=""
 	--with-bootdir="/boot"
 	--with-grubdir="grub"
-	--enable-quiet-boot \
-	--enable-quick-boot \
+	--enable-quiet-boot
+	--enable-quick-boot
 	--disable-silent-rules
 	--disable-werror
 )
@@ -169,21 +169,21 @@ prepare() {
 	done
 
 	# https://gitlab.manjaro.org/packages/core/grub/commit/01f625040cf13ed07071f7a5da5e426b130b6e70#note_11283
-	msg "Revert commit 3861286"
-	patch -Rp1 -i "${srcdir}/grub-revert-3861286.patch"
-	echo
+	#msg "Revert commit 3861286"
+	#patch -Rp1 -i "${srcdir}/grub-revert-3861286.patch"
+	#echo
 
 	# https://github.com/calamares/calamares/issues/918
-	msg "Revert commit 6400613"
-	patch -Rp1 -i "${srcdir}/grub-revert-6400613.patch"
-	echo
+	#msg "Revert commit 6400613"
+	#patch -Rp1 -i "${srcdir}/grub-revert-6400613.patch"
+	#echo
 
 	# https://github.com/calamares/calamares/issues/918
 	msg "Use efivarfs modules"
 	patch -Np1 -i "${srcdir}/grub-use-efivarfs.patch"
 	echo
 
-	msg "Patch to export $PATH"
+	msg "Patch to export $PATH" https://github.com/manjaro/manjaro-settings-manager/issues/130
 	patch -Np1 -i "${srcdir}/grub-export-path.patch"
 	echo
 	
@@ -196,22 +196,22 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
 	echo
 
-	msg "Add Fedora patches"
+#	msg "Add Fedora patches"
 	# Disable this patch for now. Creates black screens on some Lenovo laptops   
 	#patch -Np1 -i "${srcdir}/0000-grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch"
-	patch -Np1 -i "${srcdir}/0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
-	patch -Np1 -i "${srcdir}/0002-grub-efi-console-implement-getkeystatus-support.patch"
-	patch -Np1 -i "${srcdir}/0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch"
-	patch -Np1 -i "${srcdir}/0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
-	patch -Np1 -i "${srcdir}/0005-grub-add-grub-set-bootflag-utility.patch"
-	patch -Np1 -i "${srcdir}/0006-grub-add-auto-hide-menu-support.patch"
-	patch -Np1 -i "${srcdir}/0007-grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch"
-	patch -Np1 -i "${srcdir}/0008-grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch"
-	patch -Np1 -i "${srcdir}/0009-grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch"
-	patch -Np1 -i "${srcdir}/0010-grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch"
-	patch -Np1 -i "${srcdir}/0011-grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch"
-	patch -Np1 -i "${srcdir}/0012-grub-add-incr-command-to-grub-editenv.patch"
-	patch -Np1 -i "${srcdir}/0013-grub-add-grub-boot-indeterminate.service.patch"
+#	patch -Np1 -i "${srcdir}/0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
+#	patch -Np1 -i "${srcdir}/0002-grub-efi-console-implement-getkeystatus-support.patch"
+#	patch -Np1 -i "${srcdir}/0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch"
+#	patch -Np1 -i "${srcdir}/0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
+#	patch -Np1 -i "${srcdir}/0005-grub-add-grub-set-bootflag-utility.patch"
+#	patch -Np1 -i "${srcdir}/0006-grub-add-auto-hide-menu-support.patch"
+#	patch -Np1 -i "${srcdir}/0007-grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch"
+#	patch -Np1 -i "${srcdir}/0008-grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch"
+#	patch -Np1 -i "${srcdir}/0009-grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch"
+#	patch -Np1 -i "${srcdir}/0010-grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch"
+#	patch -Np1 -i "${srcdir}/0011-grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch"
+#	patch -Np1 -i "${srcdir}/0012-grub-add-incr-command-to-grub-editenv.patch"
+#	patch -Np1 -i "${srcdir}/0013-grub-add-grub-boot-indeterminate.service.patch"
 
 	msg "Add Ubuntu patches"
 	patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"
