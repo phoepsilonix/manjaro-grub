@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=2.1
+pkgrel=2.2
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -70,8 +70,6 @@ source=(#"git+https://git.savannah.gnu.org/git/grub.git#tag=grub-${_pkgver}?sign
         "git+https://git.savannah.gnu.org/git/grub-extras.git#commit=${_GRUB_EXTRAS_COMMIT}"
         "git+https://git.savannah.gnu.org/git/gnulib.git#commit=${_GNULIB_COMMIT}"
         "https://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"{,.sig}
-        'grub-revert-6400613.patch'
-        'grub-revert-3861286.patch'
         'grub-export-path.patch'
         'grub-add-GRUB_COLOR_variables.patch'
         'grub-manjaro-modifications.patch'
@@ -103,8 +101,6 @@ sha256sums=('SKIP'
             'SKIP'
             '04d652be1e28a6d464965c75c71ac84633085cd0960c2687466651c34c94bd89'
             'SKIP'
-            '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
-            '1ba877bf0bd89bd1040d1679e8c0123650b9a022e5ec7d44dcfde0a88ea34188'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
             'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
@@ -168,16 +164,6 @@ prepare() {
 		git cherry-pick -n "${_c}"
 	done
 
-	# https://gitlab.manjaro.org/packages/core/grub/commit/01f625040cf13ed07071f7a5da5e426b130b6e70#note_11283
-	#msg "Revert commit 3861286"
-	#patch -Rp1 -i "${srcdir}/grub-revert-3861286.patch"
-	#echo
-
-	# https://github.com/calamares/calamares/issues/918
-	#msg "Revert commit 6400613"
-	#patch -Rp1 -i "${srcdir}/grub-revert-6400613.patch"
-	#echo
-
 	# https://github.com/calamares/calamares/issues/918
 	msg "Use efivarfs modules"
 	patch -Np1 -i "${srcdir}/grub-use-efivarfs.patch"
@@ -196,11 +182,11 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
 	echo
 
-#	msg "Add Fedora patches"
+	msg "Add Fedora patches"
 	# Disable this patch for now. Creates black screens on some Lenovo laptops   
 	#patch -Np1 -i "${srcdir}/0000-grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch"
-#	patch -Np1 -i "${srcdir}/0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
-#	patch -Np1 -i "${srcdir}/0002-grub-efi-console-implement-getkeystatus-support.patch"
+	patch -Np1 -i "${srcdir}/0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
+	patch -Np1 -i "${srcdir}/0002-grub-efi-console-implement-getkeystatus-support.patch"
 #	patch -Np1 -i "${srcdir}/0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch"
 #	patch -Np1 -i "${srcdir}/0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
 #	patch -Np1 -i "${srcdir}/0005-grub-add-grub-set-bootflag-utility.patch"
@@ -424,6 +410,7 @@ package() {
 
 	install -D -m644 "${srcdir}/${pkgname}.hook" "${pkgdir}/usr/share/libalpm/hooks/99-${pkgname}.hook"
 
+#	echo "Package grub systemd stuff..."
 	# install example files
 #	mkdir -p "${pkgdir}/usr/lib/systemd/user/timers.target.wants"
 #	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.timer" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.timer"
