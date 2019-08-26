@@ -425,13 +425,13 @@ package() {
 	install -D -m644 "${srcdir}/${pkgname}.hook" "${pkgdir}/usr/share/libalpm/hooks/99-${pkgname}.hook"
 
 	# install example files
-	mkdir -p "${pkgdir}/usr/lib/systemd/user/timers.target.wants"
-	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.timer" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.timer"
-	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.service" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.service"
-	ln -sfv '../grub-boot-success.timer' "${pkgdir}/usr/lib/systemd/user/timers.target.wants/grub-boot-success.timer"
-	chmod +s "${pkgdir}/usr/bin/grub-set-bootflag"
+#	mkdir -p "${pkgdir}/usr/lib/systemd/user/timers.target.wants"
+#	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.timer" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.timer"
+#	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.service" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.service"
+#	ln -sfv '../grub-boot-success.timer' "${pkgdir}/usr/lib/systemd/user/timers.target.wants/grub-boot-success.timer"
+#	chmod +s "${pkgdir}/usr/bin/grub-set-bootflag"
 
-	mkdir -p "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/"
-	install -D -m644 "${srcdir}/grub/docs/grub-boot-indeterminate.service" "${pkgdir}/usr/lib/systemd/system/grub-boot-indeterminate.service"
-	ln -sfv '../grub-boot-indeterminate.service' "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/grub-boot-indeterminate.service"
+#	mkdir -p "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/"
+#	install -D -m644 "${srcdir}/grub/docs/grub-boot-indeterminate.service" "${pkgdir}/usr/lib/systemd/system/grub-boot-indeterminate.service"
+#	ln -sfv '../grub-boot-indeterminate.service' "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/grub-boot-indeterminate.service"
 }
