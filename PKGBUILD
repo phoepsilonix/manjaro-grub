@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=2.2
+pkgrel=2.3
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -187,9 +187,10 @@ prepare() {
 	#patch -Np1 -i "${srcdir}/0000-grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch"
 	patch -Np1 -i "${srcdir}/0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
 	patch -Np1 -i "${srcdir}/0002-grub-efi-console-implement-getkeystatus-support.patch"
-#	patch -Np1 -i "${srcdir}/0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch"
-#	patch -Np1 -i "${srcdir}/0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
+	patch -Np1 -i "${srcdir}/0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch"
+	patch -Np1 -i "${srcdir}/0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
 #	patch -Np1 -i "${srcdir}/0005-grub-add-grub-set-bootflag-utility.patch"
+# break
 #	patch -Np1 -i "${srcdir}/0006-grub-add-auto-hide-menu-support.patch"
 #	patch -Np1 -i "${srcdir}/0007-grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch"
 #	patch -Np1 -i "${srcdir}/0008-grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch"
