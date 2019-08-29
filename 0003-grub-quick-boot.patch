@@ -102,19 +102,14 @@ index 271044f59..da5f28876 100644
  
  export TEXTDOMAIN=@PACKAGE@
  export TEXTDOMAINDIR="@localedir@"
-@@ -27,6 +28,24 @@ export PATH="$PATH"
+@@ -27,6 +28,19 @@ export PATH="$PATH"
  
  . "$pkgdatadir/grub-mkconfig_lib"
  
 +found_other_os=
 +
 +adjust_timeout () {
-+  if [ "$quick_boot" = 1 ] && [ "x${found_other_os}" = "x" ]; then
-+    cat << EOF
-+set timeout_style=hidden
-+set timeout=0
-+EOF
-+  else
++  if [ "$quick_boot" = 1 ] && [ "x${found_other_os}" != "x" ]; then
 +    cat << EOF
 +set timeout_style=menu
 +if [ "\${timeout}" = 0 ]; then
