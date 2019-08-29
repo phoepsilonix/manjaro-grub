@@ -14,7 +14,7 @@ _IA32_EFI_IN_ARCH_X64="1"
 _GRUB_EMU_BUILD="1"
 
 _GRUB_INT_VER="2.05"
-_GRUB_COMMIT="8f6843ce60b461d630439d07e577074c64511048"
+_GRUB_COMMIT="4e75b2ae313b13b5bfb54cc5e5c53368d6eb2a08"
 _GRUB_EXTRAS_COMMIT="136763a4cc9ca3a4f59d05b79eede2159d6f441e"
 _GNULIB_COMMIT="9ce9be2ef0cb1180e35dfe9dfbbe90d774b374bd"
 _UNIFONT_VER="12.1.02"
@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=3
+pkgrel=4
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -81,7 +81,6 @@ source=(#"git+https://git.savannah.gnu.org/git/grub.git#tag=grub-${_pkgver}?sign
         '0001-grub-maybe_quiet.patch'
         '0002-grub-gettext_quiet.patch'
         '0003-grub-quick-boot.patch'
-        '0004-grub-quick-boot-lvm.patch'
         'background.png'
         'grub.default'
         'grub.cfg'
@@ -103,8 +102,7 @@ sha256sums=('SKIP'
             'efdf468c2a7a55657b7172eea2803f2fb8a3021413f475006429f69202ba540a'
             '9a0ef2efe572f3e206d8f145cb9a00098f44d41eaf396110810f6f79885bd5de'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
-            '60145e988675c967e465a896ff3893d0e731d2cf06c94cdac195f8479886e323'
-            '7505adaa708517b5d181e1cfaf2d96ee0c38f6e5bf327ab283138609cb98afff'
+            '46bee2cef8df7f071578ff5074d5e334c2c27e4b04933f1b646993af9d433c8c'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
             '8eaecef8f417de916b5612cb66942bd826c9f84295e561d81f5220fe436ac69c'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
@@ -134,7 +132,7 @@ _configure_options=(
 	--with-bootdir="/boot"
 	--with-grubdir="grub"
 	--enable-quiet-boot
-	--enable-quick-boot
+        --enable-quick-boot
 	--disable-silent-rules
 	--disable-werror
 )
@@ -177,7 +175,6 @@ prepare() {
 	patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"
 	patch -Np1 -i "${srcdir}/0002-grub-gettext_quiet.patch"
 	patch -Np1 -i "${srcdir}/0003-grub-quick-boot.patch"
-	patch -Np1 -i "${srcdir}/0004-grub-quick-boot-lvm.patch"
 
         # delete line due man h2m
         sed -i -e '1369d' "Makefile.util.def"
