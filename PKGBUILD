@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=2
+pkgrel=3
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -70,65 +70,59 @@ source=(#"git+https://git.savannah.gnu.org/git/grub.git#tag=grub-${_pkgver}?sign
         "git+https://git.savannah.gnu.org/git/grub-extras.git#commit=${_GRUB_EXTRAS_COMMIT}"
         "git+https://git.savannah.gnu.org/git/gnulib.git#commit=${_GNULIB_COMMIT}"
         "https://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"{,.sig}
-        'grub-revert-6400613.patch'
-        'grub-revert-3861286.patch'
-        'grub-export-path.patch'
-        'grub-add-GRUB_COLOR_variables.patch'
-        'grub-manjaro-modifications.patch'
-        'grub-use-efivarfs.patch'
-        #'0000-grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch'
-        '0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch'
-        '0002-grub-efi-console-implement-getkeystatus-support.patch'
-        '0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch'
-        '0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch'
-        '0005-grub-add-grub-set-bootflag-utility.patch'
-        '0006-grub-add-auto-hide-menu-support.patch'
-        '0007-grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch'
-        '0008-grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch'
-        '0009-grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch'
-        '0010-grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch'
-        '0011-grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch'
-        '0012-grub-add-incr-command-to-grub-editenv.patch'
-        '0013-grub-add-grub-boot-indeterminate.service.patch'
-        '0001-grub-maybe_quiet.patch'
-        '0002-grub-gettext_quiet.patch'
         'background.png'
         'grub.default'
         'grub.cfg'
         'update-grub'
-        "${pkgname}.hook")
+        "${pkgname}.hook"
+        # Arch patches
+        '0001-grub-add-GRUB_COLOR_variables.patch'
+        # Manjaro patches
+        '0001-grub-manjaro-modifications.patch'
+        '0002-grub-export-path.patch'
+        '0003-grub-use-efivarfs.patch'
+        # Fedora patches
+        '0021-Add-support-for-UEFI-operating-systems-returned-by-o.patch'
+        #'0123-EFI-console-Do-not-set-text-mode-until-we-actually-n.patch'
+        '0124-EFI-console-Add-grub_console_read_key_stroke-helper-.patch'
+        '0125-EFI-console-Implement-getkeystatus-support.patch'
+        '0126-Make-grub_getkeystatus-helper-funtion-available-ever.patch'
+        '0127-Accept-ESC-F8-and-holding-SHIFT-as-user-interrupt-ke.patch'
+        '0128-grub-editenv-Add-incr-command-to-increment-integer-v.patch'
+        '0129-Add-auto-hide-menu-support.patch'
+        '0131-Add-grub-set-bootflag-utility.patch'
+        '0132-docs-Add-grub-boot-indeterminate.service-example.patch'
+        '0173-Don-t-assume-that-boot-commands-will-only-return-on-.patch'
+        # Ubuntu patches
+        '0001-grub-maybe_quiet.patch'
+        '0002-grub-gettext_quiet.patch')
 
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
             '04d652be1e28a6d464965c75c71ac84633085cd0960c2687466651c34c94bd89'
             'SKIP'
-            '40401632b8d790976a80f3075fc9bfe8197b9b3b21080bbba517e7dd0784389a'
-            '1ba877bf0bd89bd1040d1679e8c0123650b9a022e5ec7d44dcfde0a88ea34188'
-            '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
-            'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
-            'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
-            '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
-            'd49236776e53a7ffdc5845205c94b3276b116d1f476bbccadcea1aa0a3f57b38'
-            'b218ade00670bad6095e0284b17d85f6f92900d5ebd156a2ec1cbc5ccad92fcb'
-            '3803a487dce21f29bff829c391651705a9253431af5b20ca4ed9fe8f7ea7db6d'
-            'efdf468c2a7a55657b7172eea2803f2fb8a3021413f475006429f69202ba540a'
-            '3f67b4c18e9d573a7a63543e8727dc701ebb20710770a53a415a31bc0c4721f4'
-            '0579636531ee5e0bf0de489b88bd1deda678cfdfd714afef49bb62e971b3644b'
-            '42212498678d8049115cbb7363d0bdd9ba4cff48e4d1b88a6b1fa174576e6011'
-            '1ab0b9da5af1e4aba25ade5cc7f496610ec7828023ad1ba0b613be535683f881'
-            '7e46f081c08dec87d522b8db642e55e51fe89a02b9d9bfd4760f58a7692ede4a'
-            '54a0a0591b38b82c96a6e400cd9212f8e916120701cc9d91daca56b4c185c768'
-            '05a3b96970f78a2440847d1852fa2d79586aa9a047e774f41ee862a2bcb645ca'
-            'aa124da42fa8e594941760065e615744dbf411f14feb73c29f4ed4b0ca5fd3e3'
-            '1c6a56719da9369c4bdc384a837c5ebe885d023e99320dfe8e8025cc84d0b96a'
-            '9a0ef2efe572f3e206d8f145cb9a00098f44d41eaf396110810f6f79885bd5de'
-            '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
             '8eaecef8f417de916b5612cb66942bd826c9f84295e561d81f5220fe436ac69c'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
             '467b0101154076fee99d9574a5fb6b772a3923cc200a1f4ca08fe17be8d68111'
-            '1488d7f3924bd7385a222e3e9685cdb1ecb39f3d6f882da6b5907b898f5b8f08')
+            '1488d7f3924bd7385a222e3e9685cdb1ecb39f3d6f882da6b5907b898f5b8f08'
+            'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
+            'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
+            '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
+            '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
+            '9ed7986ed7c8681f5e83e5d37ad9ef557369d786270c3440d7e1809f9f0f8c14'
+            'd49236776e53a7ffdc5845205c94b3276b116d1f476bbccadcea1aa0a3f57b38'
+            'b218ade00670bad6095e0284b17d85f6f92900d5ebd156a2ec1cbc5ccad92fcb'
+            '3803a487dce21f29bff829c391651705a9253431af5b20ca4ed9fe8f7ea7db6d'
+            '8e00b55925e5d9ba67b4949c75c0c33ae1c7ea9644780a79bf1e0f4dbaac06ff'
+            'ff95c6866476b0bc574cf89f57acc22a6e277d0f0e55d9654dbfe27798622576'
+            '46ee7f04e14cf6a311258f34b937697d9fe75c5cee6d9d354911a989153a4498'
+            '00e04c665072d0b03c3b9ab15bac274edff9c2f1113e70cd60258f328ab961ea'
+            'd858707ce7912ba479a3fb0de9a1cc858b92c787500073cc7af90186562a8731'
+            '09b247abfbbeef8299fc9ddefd7e8913e77c2179c4507c08800ce067169da430'
+            '9a0ef2efe572f3e206d8f145cb9a00098f44d41eaf396110810f6f79885bd5de'
+            '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264')
 
 _backports=(      
 )
@@ -168,50 +162,39 @@ prepare() {
 		git cherry-pick -n "${_c}"
 	done
 
-	# https://gitlab.manjaro.org/packages/core/grub/commit/01f625040cf13ed07071f7a5da5e426b130b6e70#note_11283
-	msg "Revert commit 3861286"
-	patch -Rp1 -i "${srcdir}/grub-revert-3861286.patch"
-	echo
-
-	# https://github.com/calamares/calamares/issues/918
-	msg "Revert commit 6400613"
-	patch -Rp1 -i "${srcdir}/grub-revert-6400613.patch"
-	echo
-
-	# https://github.com/calamares/calamares/issues/918
-	msg "Use efivarfs modules"
-	patch -Np1 -i "${srcdir}/grub-use-efivarfs.patch"
-	echo
-
-	msg "Patch to export $PATH"
-	patch -Np1 -i "${srcdir}/grub-export-path.patch"
-	echo
-	
 	msg "Patch to enable GRUB_COLOR_* variables in grub-mkconfig"
 	## Based on http://lists.gnu.org/archive/html/grub-devel/2012-02/msg00021.html
-	patch -Np1 -i "${srcdir}/grub-add-GRUB_COLOR_variables.patch"
+	patch -Np1 -i "${srcdir}/0001-grub-add-GRUB_COLOR_variables.patch"
 	echo
 
 	msg "Patch to include Manjaro Linux Modifications"
-	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
+	patch -Np1 -i "${srcdir}/0001-grub-manjaro-modifications.patch"
 	echo
 
+	msg "Patch to export $PATH"
+        ## https://github.com/manjaro/manjaro-settings-manager/issues/130
+	patch -Np1 -i "${srcdir}/0002-grub-export-path.patch"
+	echo
+
+	msg "Use efivarfs modules"
+        ## https://github.com/calamares/calamares/issues/918
+	patch -Np1 -i "${srcdir}/0003-grub-use-efivarfs.patch"
+	echo
+
+
 	msg "Add Fedora patches"
+        #patch -Np1 -i "${srcdir}/0021-Add-support-for-UEFI-operating-systems-returned-by-o.patch"
 	# Disable this patch for now. Creates black screens on some Lenovo laptops   
-	#patch -Np1 -i "${srcdir}/0000-grub-efi-console-do-not-set-text-mode-until-we-actually-need-it.patch"
-	patch -Np1 -i "${srcdir}/0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
-	patch -Np1 -i "${srcdir}/0002-grub-efi-console-implement-getkeystatus-support.patch"
-	patch -Np1 -i "${srcdir}/0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch"
-	patch -Np1 -i "${srcdir}/0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
-	patch -Np1 -i "${srcdir}/0005-grub-add-grub-set-bootflag-utility.patch"
-	patch -Np1 -i "${srcdir}/0006-grub-add-auto-hide-menu-support.patch"
-	patch -Np1 -i "${srcdir}/0007-grub-00_menu_auto_hide-use-a-timeout-of-60s-for-menu_show.patch"
-	patch -Np1 -i "${srcdir}/0008-grub-00_menu_auto_hide-reduce-number-of-save_env-calls.patch"
-	patch -Np1 -i "${srcdir}/0009-grub-rename-00_menu_auto_hide.in-to-01_menu_auto_hide.in.patch"
-	patch -Np1 -i "${srcdir}/0010-grub-grub-boot-success.timer-add-a-few-conditions-for-run.patch"
-	patch -Np1 -i "${srcdir}/0011-grub-docs-stop-using-polkit-pkexec-for-grub-boot-success.patch"
-	patch -Np1 -i "${srcdir}/0012-grub-add-incr-command-to-grub-editenv.patch"
-	patch -Np1 -i "${srcdir}/0013-grub-add-grub-boot-indeterminate.service.patch"
+        #patch -Np1 -i "${srcdir}/0123-EFI-console-Do-not-set-text-mode-until-we-actually-n.patch"
+	patch -Np1 -i "${srcdir}/0124-EFI-console-Add-grub_console_read_key_stroke-helper-.patch"
+	patch -Np1 -i "${srcdir}/0125-EFI-console-Implement-getkeystatus-support.patch"
+	patch -Np1 -i "${srcdir}/0126-Make-grub_getkeystatus-helper-funtion-available-ever.patch"
+	patch -Np1 -i "${srcdir}/0127-Accept-ESC-F8-and-holding-SHIFT-as-user-interrupt-ke.patch"
+	patch -Np1 -i "${srcdir}/0128-grub-editenv-Add-incr-command-to-increment-integer-v.patch"
+	#patch -Np1 -i "${srcdir}/0129-Add-auto-hide-menu-support.patch"
+	#patch -Np1 -i "${srcdir}/0131-Add-grub-set-bootflag-utility.patch"
+	patch -Np1 -i "${srcdir}/0132-docs-Add-grub-boot-indeterminate.service-example.patch"
+	patch -Np1 -i "${srcdir}/0173-Don-t-assume-that-boot-commands-will-only-return-on-.patch"
 
 	msg "Add Ubuntu patches"
 	patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"
@@ -425,13 +408,13 @@ package() {
 	install -D -m644 "${srcdir}/${pkgname}.hook" "${pkgdir}/usr/share/libalpm/hooks/99-${pkgname}.hook"
 
 	# install example files
-	mkdir -p "${pkgdir}/usr/lib/systemd/user/timers.target.wants"
-	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.timer" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.timer"
-	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.service" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.service"
-	ln -sfv '../grub-boot-success.timer' "${pkgdir}/usr/lib/systemd/user/timers.target.wants/grub-boot-success.timer"
-	chmod +s "${pkgdir}/usr/bin/grub-set-bootflag"
+#	mkdir -p "${pkgdir}/usr/lib/systemd/user/timers.target.wants"
+#	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.timer" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.timer"
+#	install -D -m644 "${srcdir}/grub/docs/grub-boot-success.service" "${pkgdir}/usr/lib/systemd/user/grub-boot-success.service"
+#	ln -sfv '../grub-boot-success.timer' "${pkgdir}/usr/lib/systemd/user/timers.target.wants/grub-boot-success.timer"
+#	chmod +s "${pkgdir}/usr/bin/grub-set-bootflag"
 
-	mkdir -p "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/"
-	install -D -m644 "${srcdir}/grub/docs/grub-boot-indeterminate.service" "${pkgdir}/usr/lib/systemd/system/grub-boot-indeterminate.service"
-	ln -sfv '../grub-boot-indeterminate.service' "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/grub-boot-indeterminate.service"
+#	mkdir -p "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/"
+#	install -D -m644 "${srcdir}/grub/docs/grub-boot-indeterminate.service" "${pkgdir}/usr/lib/systemd/system/grub-boot-indeterminate.service"
+#	ln -sfv '../grub-boot-indeterminate.service' "${pkgdir}/usr/lib/systemd/system/sysinit.target.wants/grub-boot-indeterminate.service"
 }
