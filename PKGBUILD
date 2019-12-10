@@ -14,7 +14,7 @@ _IA32_EFI_IN_ARCH_X64="1"
 _GRUB_EMU_BUILD="1"
 
 _GRUB_INT_VER="2.05"
-_GRUB_COMMIT="4e75b2ae313b13b5bfb54cc5e5c53368d6eb2a08"
+_GRUB_COMMIT="495781f5ed1b48bf27f16c53940d6700c181c74c"
 _GRUB_EXTRAS_COMMIT="136763a4cc9ca3a4f59d05b79eede2159d6f441e"
 _GNULIB_COMMIT="9ce9be2ef0cb1180e35dfe9dfbbe90d774b374bd"
 _UNIFONT_VER="12.1.02"
@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=8
+pkgrel=9
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
