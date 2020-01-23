@@ -14,9 +14,9 @@ _IA32_EFI_IN_ARCH_X64="1"
 _GRUB_EMU_BUILD="1"
 
 _GRUB_INT_VER="2.05"
-_GRUB_COMMIT="495781f5ed1b48bf27f16c53940d6700c181c74c"
-_GRUB_EXTRAS_COMMIT="136763a4cc9ca3a4f59d05b79eede2159d6f441e"
-_GNULIB_COMMIT="9ce9be2ef0cb1180e35dfe9dfbbe90d774b374bd"
+_GRUB_COMMIT="0f3f5b7c13fa9b677a64cf11f20eca0f850a2b20" #365e0cc3e7e44151c14dd29514c2f870b49f9755"
+_GRUB_EXTRAS_COMMIT="8a245d5c1800627af4cefa99162a89c7a46d8842"
+_GNULIB_COMMIT="24d438e5e579478a4c4d4fece2f10a68a1836268"
 _UNIFONT_VER="12.1.02"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=9
+pkgrel=10
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -109,7 +109,7 @@ sha256sums=('SKIP'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
             '467b0101154076fee99d9574a5fb6b772a3923cc200a1f4ca08fe17be8d68111'
             '2eb199f510340cf8d190ba2fa80d5bdcf1e2e7ca53e8011af2ee62ea3b8dd03b'
-            'b5a9b80fee3856db53716d278b0ba27942fb0993515fd6bbc1629b7fee2d65d7')
+            'a97ddf6694fa5070463a2d3f997205436a63fbe125071dd1bef0d59999adff70')
 
 _backports=(      
 )
