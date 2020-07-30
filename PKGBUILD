@@ -14,10 +14,10 @@ _IA32_EFI_IN_ARCH_X64="1"
 _GRUB_EMU_BUILD="1"
 
 _GRUB_INT_VER="2.05"
-_GRUB_COMMIT="0f3f5b7c13fa9b677a64cf11f20eca0f850a2b20" #365e0cc3e7e44151c14dd29514c2f870b49f9755"
+_GRUB_COMMIT="e7b8856f8be3292afdb38d2e8c70ad8d62a61e10"
 _GRUB_EXTRAS_COMMIT="8a245d5c1800627af4cefa99162a89c7a46d8842"
-_GNULIB_COMMIT="24d438e5e579478a4c4d4fece2f10a68a1836268"
-_UNIFONT_VER="12.1.02"
+_GNULIB_COMMIT="bd64d7247df1eeeb9a3f808783f3bf618cbee16b"
+_UNIFONT_VER="13.0.03"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
@@ -29,7 +29,7 @@ pkgname='grub'
 pkgdesc='GNU GRand Unified Bootloader (2)'
 _pkgver=2.04
 pkgver=${_pkgver/-/}
-pkgrel=10
+pkgrel=11
 url='https://www.gnu.org/software/grub/'
 arch=('x86_64')
 license=('GPL3')
@@ -63,7 +63,9 @@ if [[ "${_GRUB_EMU_BUILD}" == "1" ]]; then
 fi
 
 validpgpkeys=('E53D497F3FA42AD8C9B4D1E835A93B74E82E4209'  # Vladimir 'phcoder' Serbinenko <phcoder@gmail.com>
-              '95D2E9AB8740D8046387FD151A09227B1F435A33') # Paul Hardy <unifoundry@unifoundry.com>
+              '95D2E9AB8740D8046387FD151A09227B1F435A33'  # Paul Hardy <unifoundry@unifoundry.com>
+              '5134EF9EAF65F95B6BB1608E50FB9B273A9D0BB5'  # Johannes Löthberg <johannes@kyriasis.com>
+              '04DC3FB1445FECA813C27EFAEA4F7B321A906AD9') # Daniel M. Capella <polyzen@archlinux.org>
 
 source=(#"git+https://git.savannah.gnu.org/git/grub.git#tag=grub-${_pkgver}?signed"
         "git+https://git.savannah.gnu.org/git/grub.git#commit=${_GRUB_COMMIT}"
@@ -74,10 +76,6 @@ source=(#"git+https://git.savannah.gnu.org/git/grub.git#tag=grub-${_pkgver}?sign
         'grub-add-GRUB_COLOR_variables.patch'
         'grub-manjaro-modifications.patch'
         'grub-use-efivarfs.patch'
-        '0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch'
-        '0002-grub-efi-console-implement-getkeystatus-support.patch'
-        '0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch'
-        '0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch'
         '0001-grub-maybe_quiet.patch'
         '0002-grub-gettext_quiet.patch'
         '0003-grub-quick-boot.patch'
@@ -91,16 +89,12 @@ source=(#"git+https://git.savannah.gnu.org/git/grub.git#tag=grub-${_pkgver}?sign
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
-            '04d652be1e28a6d464965c75c71ac84633085cd0960c2687466651c34c94bd89'
+            '5764b8b606ee618c60e8e533226559dba8e1ad02bc52dfa34367ae544975c29d'
             'SKIP'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
             'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
-            'd49236776e53a7ffdc5845205c94b3276b116d1f476bbccadcea1aa0a3f57b38'
-            'b218ade00670bad6095e0284b17d85f6f92900d5ebd156a2ec1cbc5ccad92fcb'
-            '3803a487dce21f29bff829c391651705a9253431af5b20ca4ed9fe8f7ea7db6d'
-            'efdf468c2a7a55657b7172eea2803f2fb8a3021413f475006429f69202ba540a'
             '9a0ef2efe572f3e206d8f145cb9a00098f44d41eaf396110810f6f79885bd5de'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
             'd222ea6e676268f44abdc2c92e9e4a6265646525ace108b828f4eb01cf20f8dd'
@@ -167,20 +161,10 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
 	echo
 
-	msg "Add Fedora patches"
-	patch -Np1 -i "${srcdir}/0001-grub-efi-console-add-grub_console_read_key_stroke-helper-function.patch"
-	patch -Np1 -i "${srcdir}/0002-grub-efi-console-implement-getkeystatus-support.patch"
-	patch -Np1 -i "${srcdir}/0003-grub-make-grub_getkeystatus-helper-function-available-ever.patch"
-	patch -Np1 -i "${srcdir}/0004-grub-accept-esc-f8-and-holding-shift-as-user-interrupt-key.patch"
-
 	msg "Add Ubuntu patches"
 	patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"
 	patch -Np1 -i "${srcdir}/0002-grub-gettext_quiet.patch"
 	patch -Np1 -i "${srcdir}/0003-grub-quick-boot.patch"
-
-        # delete line due man h2m
-        sed -i -e '1369d' "Makefile.util.def"
-	echo
 
 	echo "Fix DejaVuSans.ttf location so that grub-mkfont can create *.pf2 files for starfield theme..."
 	sed 's|/usr/share/fonts/dejavu|/usr/share/fonts/dejavu /usr/share/fonts/TTF|g' -i "configure.ac"
@@ -196,6 +180,10 @@ prepare() {
 
 	echo "Pull in latest language files..."
 	./linguas.sh
+
+        # Remove lua module from grub-extras as it is incompatible with changes to grub_file_open   
+        # http://git.savannah.gnu.org/cgit/grub.git/commit/?id=ca0a4f689a02c2c5a5e385f874aaaa38e151564e
+        rm -rf "$srcdir"/grub-extras/lua
 
 	echo "Remove not working langs which need LC_ALL=C.UTF-8..."
 	sed -e 's#en@cyrillic en@greek##g' -i "po/LINGUAS"
