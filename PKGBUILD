@@ -28,7 +28,7 @@ _build_platforms="i386-pc ${_target_arch}-efi"
 
 pkgname="grub"
 pkgver=2.04
-pkgrel=11
+pkgrel=11.1
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686')
 url="https://www.gnu.org/software/grub/"
@@ -51,7 +51,8 @@ fi
 provides=("${pkgname%-*}")
 conflicts=("${pkgname%-*}")
 backup=('etc/default/grub'
-        'etc/grub.d/40_custom')
+        'etc/grub.d/40_custom'
+        'boot/grub/grub.cfg')
 install="${pkgname}.install"
 source=("grub::git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMIT"
         "grub-extras::git+https://git.savannah.gnu.org/git/grub-extras.git#commit=$_GRUB_EXTRAS_COMMIT"
@@ -187,6 +188,15 @@ package() {
         cd "$srcdir"/grub/build_"$_arch"
         make DESTDIR="$pkgdir" bashcompletiondir=/usr/share/bash-completion/completions install
     done
+
+    msg "Install grub.cfg for backup array"
+    install -D -m0644 "${srcdir}/grub.cfg" "${pkgdir}/boot/grub/grub.cfg"
+
+    msg "Install update-grub"
+    install -Dm755 "${srcdir}/update-grub" "${pkgdir}/usr/bin/update-grub"
+
+    msg "Install grub background"
+    install -Dm644 "${srcdir}/background.png" "${pkgdir}/usr/share/grub/background.png"	
 
     # Install /etc/default/grub (used by grub-mkconfig)
     install -D -m0644 "$srcdir"/grub.default "$pkgdir"/etc/default/grub
