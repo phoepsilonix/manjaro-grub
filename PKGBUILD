@@ -15,9 +15,9 @@ _ia32_efi_in_arch_x64="1"
 _grub_emu_build="1"
 
 _GRUB_INT_VER="2.05"
-_GRUB_COMMIT="d7cac52eb21b866ffec66dc8d1319cc0695c94ee"
+_GRUB_COMMIT="b298eed00193164dd7c47b8c681da5e5ee741992"
 _GRUB_EXTRAS_COMMIT="8a245d5c1800627af4cefa99162a89c7a46d8842"
-_GNULIB_COMMIT="e2739ba6310893be93d01a23cbfed8d8dfb08966"
+_GNULIB_COMMIT="0f1b9440bc719abcee7cbdf137e723cfe153038a"
 
 [[ "${CARCH}" == "x86_64" ]] && _target_arch="x86_64"
 [[ "${CARCH}" == "i686" ]] && _target_arch="i386"
@@ -28,7 +28,7 @@ _build_platforms="i386-pc ${_target_arch}-efi"
 
 pkgname="grub"
 pkgver=2.04
-pkgrel=12
+pkgrel=14
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686')
 url="https://www.gnu.org/software/grub/"
@@ -75,13 +75,13 @@ sha256sums=('SKIP'
             'SKIP'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
-            'cf00c96aee37e0a73c1ab6ed6ccfe74fa2b2859f55cd315a4caa6c880ce7aeba'
+            '2f4f0715dceddffbed55c57c51b6f8d91c59b6b313dc495f165d4847f77cbd74'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
-            '9a0ef2efe572f3e206d8f145cb9a00098f44d41eaf396110810f6f79885bd5de'
+            '4a0a90ae29c97b395c0610f6d78f3d39d57a7a4b41647ace9bcce4b864e19497'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
             'd222ea6e676268f44abdc2c92e9e4a6265646525ace108b828f4eb01cf20f8dd'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
-            'f1b226fe671665305e21e06dc1744b94f734e397697e2e9915bd95fbcd0c6ef5'
+            '462f6c2dca085985aa29f2dec94daac8185f2df12eb7ca13295f31227ef253a8'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
             '467b0101154076fee99d9574a5fb6b772a3923cc200a1f4ca08fe17be8d68111'
             '2eb199f510340cf8d190ba2fa80d5bdcf1e2e7ca53e8011af2ee62ea3b8dd03b'

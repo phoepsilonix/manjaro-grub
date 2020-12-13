@@ -47,3 +47,7 @@ GRUB_COLOR_HIGHLIGHT="green/black"
 
 # Uncomment to get a beep at GRUB start
 #GRUB_INIT_TUNE="480 440 1"
+
+# Uncomment to ensure that the root filesystem is mounted read-only so that
+# systemd-fsck can run the check automatically
+GRUB_ROOT_FS_RO=true

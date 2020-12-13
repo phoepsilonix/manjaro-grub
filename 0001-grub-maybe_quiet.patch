@@ -353,7 +353,7 @@ diff --git a/util/grub.d/10_linux.in b/util/grub.d/10_linux.in
 +EOF
 +  fi
 +    sed "s/^/$submenu_indentation/" << EOF
- 	linux	${rel_dirname}/${basename} root=${linux_root_device_thisversion} rw ${args}
+ 	linux	${rel_dirname}/${basename} root=${linux_root_device_thisversion} ${grub_root_fs_mode} ${args}
  EOF
    if test -n "${initrd}" ; then
 @@ -153,8 +158,12 @@ EOF
