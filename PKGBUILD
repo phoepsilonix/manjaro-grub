@@ -1,12 +1,14 @@
+# Maintainer: Philip Müller <philm[at]manjaro[dot]org>
+# Maintainer: Helmut Stult <helmut[at]manjaro[dot]org>
+# Maintainer: Stefano Capitani <stefano[at]manjaro[dot]org>
+
+# Arch credits:
 # Based on the file created for Arch Linux by:
 # Contributor: Christian Hesse <mail@eworm.de>
 # Contributor: Llewelyn Trahaearn <WoefulDerelict [at] GMail [dot] com>
 # Contributor: Tobias Powalowski <tpowa [at] archlinux [dot] org>
 # Contributor: Ronald van Haren <ronald [at] archlinux [dot] org>
 # Contributor: Keshav Amburay <(the ddoott ridikulus ddoott rat) (aatt) (gemmaeiil) (ddoott) (ccoomm)>
-
-# Maintainer: Philip Mueller <philm|manjaro|org>
-# Maintainer: Guinux <nuxgui|gmail|com>
 
 ## "1" to enable IA32-EFI build in Arch x86_64, "0" to disable
 _ia32_efi_in_arch_x64="1"
@@ -28,7 +30,7 @@ _build_platforms="i386-pc ${_target_arch}-efi"
 
 pkgname="grub"
 pkgver=2.04
-pkgrel=13
+pkgrel=14
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686')
 url="https://www.gnu.org/software/grub/"
@@ -49,7 +51,7 @@ if [[ "${_grub_emu_build}" == "1" ]]; then
 fi
 
 provides=("${pkgname%-*}")
-conflicts=("${pkgname%-*}" 'grub-customizer') 
+conflicts=("${pkgname%-*}") 
 backup=('etc/default/grub'
         'etc/grub.d/40_custom'
         'boot/grub/grub.cfg')
@@ -83,7 +85,7 @@ sha256sums=('SKIP'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
             '462f6c2dca085985aa29f2dec94daac8185f2df12eb7ca13295f31227ef253a8'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
-            '467b0101154076fee99d9574a5fb6b772a3923cc200a1f4ca08fe17be8d68111'
+            'a6a3e6a7c2380aff66b6096d478aed790c927ceed551ce52c0c454191eb4e3aa'
             '2eb199f510340cf8d190ba2fa80d5bdcf1e2e7ca53e8011af2ee62ea3b8dd03b'
             'a97ddf6694fa5070463a2d3f997205436a63fbe125071dd1bef0d59999adff70')
  
