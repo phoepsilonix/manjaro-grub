@@ -30,7 +30,7 @@ _build_platforms="i386-pc ${_target_arch}-efi"
 
 pkgname="grub"
 pkgver=2.04
-pkgrel=14
+pkgrel=14.1
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686')
 url="https://www.gnu.org/software/grub/"
