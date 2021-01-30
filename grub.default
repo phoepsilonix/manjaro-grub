@@ -49,5 +49,8 @@ GRUB_COLOR_HIGHLIGHT="green/black"
 #GRUB_INIT_TUNE="480 440 1"
 
 # Uncomment to ensure that the root filesystem is mounted read-only so that
-# systemd-fsck can run the check automatically
-GRUB_ROOT_FS_RO=true
+# systemd-fsck can run the check automatically. We use 'fsck' by default, which
+# needs 'rw' as boot parameter, to avoid delay in boot-time. 'fsck' needs to be
+# removed from 'mkinitcpio.conf' to make 'systemd-fsck' work.
+# See also Arch-Wiki: https://wiki.archlinux.org/index.php/Fsck#Boot_time_checking
+#GRUB_ROOT_FS_RO=true
