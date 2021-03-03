@@ -119,10 +119,10 @@ index 271044f59..da5f28876 100644
 +  fi
 +}
 +
- if [ "x${GRUB_DISABLE_OS_PROBER}" = "xtrue" ]; then
+ if [ "x${GRUB_DISABLE_OS_PROBER}" = "xfalse" ]; then
+   gettext_printf "os-prober will not be executed to detect other bootable partitions.\nSystems on them will not be added to the GRUB boot configuration.\nCheck GRUB_DISABLE_OS_PROBER documentation entry.\n"
    exit 0
- fi
-@@ -43,6 +62,7 @@ if [ -z "${OSPROBED}" ] ; then
+@@ -46,6 +60,7 @@ else
  fi
  
  osx_entry() {
@@ -130,7 +130,7 @@ index 271044f59..da5f28876 100644
      if [ x$2 = x32 ]; then
          # TRANSLATORS: it refers to kernel architecture (32-bit)
  	bitstr="$(gettext "(32-bit)")"
-@@ -147,6 +167,7 @@ for OS in ${OSPROBED} ; do
+@@ -150,6 +165,7 @@ for OS in ${OSPROBED} ; do
    case ${BOOT} in
      chain)
  
@@ -138,7 +138,7 @@ index 271044f59..da5f28876 100644
  	  onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
        cat << EOF
  menuentry '$(echo "${LONGNAME} $onstr" | grub_quote)' $CLASS --class os \$menuentry_id_option 'osprober-chain-$(grub_get_device_id "${DEVICE}")' {
-@@ -177,6 +198,7 @@ EOF
+@@ -180,6 +196,7 @@ EOF
      ;;
      efi)
  
@@ -146,7 +146,7 @@ index 271044f59..da5f28876 100644
  	EFIPATH=${DEVICE#*@}
  	DEVICE=${DEVICE%@*}
  	onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
-@@ -220,6 +242,7 @@ EOF
+@@ -223,6 +240,7 @@ EOF
  	  LINITRD="${LINITRD#/boot}"
  	fi
  
@@ -154,7 +154,7 @@ index 271044f59..da5f28876 100644
  	onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
  	recovery_params="$(echo "${LPARAMS}" | grep single)" || true
  	counter=1
-@@ -292,6 +315,7 @@ EOF
+@@ -303,6 +321,7 @@ EOF
        fi
      ;;
      hurd)
@@ -162,7 +162,7 @@ index 271044f59..da5f28876 100644
        onstr="$(gettext_printf "(on %s)" "${DEVICE}")"
        cat << EOF
  menuentry '$(echo "${LONGNAME} $onstr" | grub_quote)' --class hurd --class gnu --class os \$menuentry_id_option 'osprober-gnuhurd-/boot/gnumach.gz-false-$(grub_get_device_id "${DEVICE}")' {
-@@ -334,3 +358,5 @@ EOF
+@@ -345,3 +364,5 @@ EOF
      ;;
    esac
  done
