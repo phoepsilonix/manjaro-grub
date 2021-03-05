@@ -30,7 +30,7 @@ _UNIFONT_VER="13.0.06"
 
 pkgname="grub"
 pkgver=2.04
-pkgrel=17
+pkgrel=18
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686')
 url="https://www.gnu.org/software/grub/"
@@ -74,6 +74,7 @@ source=("grub::git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMI
         'grub-add-GRUB_COLOR_variables.patch'
         'grub-manjaro-modifications.patch'
         'grub-use-efivarfs.patch'
+        'grub-disable-os-prober-by-default.patch'
         '0001-grub-maybe_quiet.patch'
         '0002-grub-gettext_quiet.patch'
         '0003-grub-quick-boot.patch'
@@ -93,9 +94,10 @@ sha256sums=('SKIP'
             'a5198267ceb04dceb6d2ea7800281a42b3f91fd02da55d2cc9ea20d47273ca29'
             '2f4f0715dceddffbed55c57c51b6f8d91c59b6b313dc495f165d4847f77cbd74'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
+            'c3297839d296b7ff4fdeb62c9d567953f99d655c7fead15e7c237ad6ef4c2728'
             '4a0a90ae29c97b395c0610f6d78f3d39d57a7a4b41647ace9bcce4b864e19497'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
-            '95115b12ed8ed0fe72ced498d4a4269485d815972d5b4f04617f08ce12994b25'
+            '4cae03685c238a60169f1134165ff010faebddb5b3218d92d32e0b6729b27656'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
             '3101ca821918eee8bdc95ec9e9e2bd69bf86d9be421ca702e91bb9f0cb7d2fd2'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
@@ -155,6 +157,9 @@ prepare() {
 
 	echo "Patch to include Manjaro Linux Modifications"
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
+	
+	echo "Disable os-prober by default"
+	patch -Np1 -i "${srcdir}/grub-disable-os-prober-by-default.patch"
 
 	echo "Add Ubuntu patches"
 	patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"

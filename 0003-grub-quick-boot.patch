@@ -119,7 +119,7 @@ index 271044f59..da5f28876 100644
 +  fi
 +}
 +
- if [ "x${GRUB_DISABLE_OS_PROBER}" = "xfalse" ]; then
+ if [ "x${GRUB_DISABLE_OS_PROBER}" = "xtrue" ]; then
    gettext_printf "os-prober will not be executed to detect other bootable partitions.\nSystems on them will not be added to the GRUB boot configuration.\nCheck GRUB_DISABLE_OS_PROBER documentation entry.\n"
    exit 0
 @@ -46,6 +60,7 @@ else

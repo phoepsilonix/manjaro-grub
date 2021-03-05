@@ -1,0 +1,64 @@
+--- a/util/grub-mkconfig.in	2021-03-03 09:28:55.218433025 +0100
++++ b/util/grub-mkconfig.in	2021-03-05 10:19:06.099449628 +0100
+@@ -131,6 +131,9 @@ else
+     exit 1
+ fi
+ 
++# Disable os-prober by default due to security reasons.
++GRUB_DISABLE_OS_PROBER="true"
++
+ # Device containing our userland.  Typically used for root= parameter.
+ GRUB_DEVICE="`${grub_probe} --target=device /`"
+ GRUB_DEVICE_UUID="`${grub_probe} --device ${GRUB_DEVICE} --target=fs_uuid 2> /dev/null`" || true
+@@ -204,7 +207,8 @@ export GRUB_DEVICE \
+   GRUB_FS \
+   GRUB_FONT \
+   GRUB_PRELOAD_MODULES \
+-  GRUB_ACTUAL_DEFAULT
++  GRUB_ACTUAL_DEFAULT \
++  GRUB_DISABLE_OS_PROBER
+ 
+ # These are optional, user-defined variables.
+ export GRUB_DEFAULT \
+@@ -242,7 +246,6 @@ export GRUB_DEFAULT \
+   GRUB_BACKGROUND \
+   GRUB_THEME \
+   GRUB_GFXPAYLOAD_LINUX \
+-  GRUB_DISABLE_OS_PROBER \
+   GRUB_COLOR_NORMAL \
+   GRUB_COLOR_HIGHLIGHT \
+   GRUB_INIT_TUNE \
+--- a/util/grub.d/30_os-prober.in	2021-03-03 09:28:55.221766360 +0100
++++ b/util/grub.d/30_os-prober.in	2021-03-05 10:03:06.872791366 +0100
+@@ -27,22 +27,22 @@ export PATH="$PATH"
+ 
+ . "$pkgdatadir/grub-mkconfig_lib"
+ 
+-if [ "x${GRUB_DISABLE_OS_PROBER}" = "xfalse" ]; then
+-  gettext_printf "os-prober will not be executed to detect other bootable partitions.\nSystems on them will not be added to the GRUB boot configuration.\nCheck GRUB_DISABLE_OS_PROBER documentation entry.\n"
+-  exit 0
+-fi
+-
+ if ! command -v os-prober > /dev/null || ! command -v linux-boot-prober > /dev/null ; then
+   # missing os-prober and/or linux-boot-prober
+   exit 0
+ fi
+ 
+-OSPROBED="`os-prober | tr ' ' '^' | paste -s -d ' '`"
+-if [ -z "${OSPROBED}" ] ; then
+-  # empty os-prober output, nothing doing
++if [ "x${GRUB_DISABLE_OS_PROBER}" = "xtrue" ]; then
++  gettext_printf "os-prober will not be executed to detect other bootable partitions.\nSystems on them will not be added to the GRUB boot configuration.\nCheck GRUB_DISABLE_OS_PROBER documentation entry.\n"
+   exit 0
+ else
+-  grub_warn "$(gettext_printf "os-prober was executed to detect other bootable partitions.\nIt's output will be used to detect bootable binaries on them and create new boot entries.")"
++  OSPROBED="`os-prober | tr ' ' '^' | paste -s -d ' '`"
++  if [ -z "${OSPROBED}" ] ; then
++    # empty os-prober output, nothing doing
++    exit 0
++  else
++    grub_warn "$(gettext_printf "os-prober was executed to detect other bootable partitions.\nIt's output will be used to detect bootable binaries on them and create new boot entries.")"
++  fi  
+ fi
+ 
+ osx_entry() {
