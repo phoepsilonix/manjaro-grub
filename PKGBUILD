@@ -159,7 +159,7 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
 	
 	echo "Disable os-prober by default"
-	patch -Np1 -i "${srcdir}/grub-disable-os-prober-by-default.patch"
+	patch -Np1 -i "${srcdir}/0001-templates-Properly-disable-the-os-prober-by-default.patch"
 
 	echo "Add Ubuntu patches"
 	patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"
