@@ -30,7 +30,7 @@ _UNIFONT_VER="13.0.06"
 
 pkgname="grub"
 pkgver=2.04
-pkgrel=19
+pkgrel=20
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686')
 url="https://www.gnu.org/software/grub/"
@@ -94,10 +94,10 @@ sha256sums=('SKIP'
             '4f91fda4262115a51fd8fdd7375160b8308b504b31bd6f1be6d2048d5e4a6ad2'
             '2f4f0715dceddffbed55c57c51b6f8d91c59b6b313dc495f165d4847f77cbd74'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
-            'ee7f2cdc3974e955afb14bfd450cbeb6eba981e605bcc16117078aa08bba30fd'
+            '94b5e8ad6d979948ad3d342386fa6bc0634653e7e824a895e21188082efbbcab'
             '4a0a90ae29c97b395c0610f6d78f3d39d57a7a4b41647ace9bcce4b864e19497'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
-            '50805f82f86dca52db123d9c43d10065908506802d4b3db31338b795c3b1f967'
+            '4cae03685c238a60169f1134165ff010faebddb5b3218d92d32e0b6729b27656'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
             '282a7c2084f6172aa5fa6926b1d3276eb7d5e58155540b11d4469cb6859ab7b5'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
