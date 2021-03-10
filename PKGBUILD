@@ -30,7 +30,7 @@ _UNIFONT_VER="13.0.06"
 
 pkgname="grub"
 pkgver=2.04
-pkgrel=20
+pkgrel=21
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686')
 url="https://www.gnu.org/software/grub/"
@@ -75,6 +75,7 @@ source=("grub::git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMI
         'grub-manjaro-modifications.patch'
         'grub-use-efivarfs.patch'
         '0001-templates-Properly-disable-the-os-prober-by-default.patch'
+        '0002-templates-echo-to-terminal.patch'
         '0001-grub-maybe_quiet.patch'
         '0002-grub-gettext_quiet.patch'
         '0003-grub-quick-boot.patch'
@@ -95,6 +96,7 @@ sha256sums=('SKIP'
             '2f4f0715dceddffbed55c57c51b6f8d91c59b6b313dc495f165d4847f77cbd74'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
             '94b5e8ad6d979948ad3d342386fa6bc0634653e7e824a895e21188082efbbcab'
+            'bc75b0083849047a7627c8253356ab98a36ee77fa6ce961cb67d5a6a1d63c53e'
             '4a0a90ae29c97b395c0610f6d78f3d39d57a7a4b41647ace9bcce4b864e19497'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
             '4cae03685c238a60169f1134165ff010faebddb5b3218d92d32e0b6729b27656'
@@ -152,7 +154,8 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-export-path.patch"
 	
 	echo "Disable os-prober by default"
-	patch -Np1 -i "${srcdir}/0001-templates-Properly-disable-the-os-prober-by-default.patch"	
+	patch -Np1 -i "${srcdir}/0001-templates-Properly-disable-the-os-prober-by-default.patch"
+	patch -Np1 -i "${srcdir}/0002-templates-echo-to-terminal.patch"
     
 	echo "Patch to enable GRUB_COLOR_* variables in grub-mkconfig"
 	## Based on http://lists.gnu.org/archive/html/grub-devel/2012-02/msg00021.html
