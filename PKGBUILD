@@ -16,10 +16,10 @@ _IA32_EFI_IN_ARCH_X64="1"
 ## "1" to enable EMU build, "0" to disable
 _GRUB_EMU_BUILD="1"
 
-_GRUB_INT_VER="2.06~rc1"
-_GRUB_COMMIT="a53e530f8ad3770c3b03c208c08ae4162f68e3b1"
+_GRUB_INT_VER="2.06"
+_GRUB_COMMIT="ae94b97be2b81b625d6af6654d3ed79078b50ff6"
 _GRUB_EXTRAS_COMMIT="8a245d5c1800627af4cefa99162a89c7a46d8842"
-_GNULIB_COMMIT="3b0808afa4236e6fa221eac2ec25dc2a8ef09557"
+_GNULIB_COMMIT="4480dd39f2f8e59576dc03727d004ae996e26d6c"
 _UNIFONT_VER="13.0.06"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
@@ -29,8 +29,8 @@ _UNIFONT_VER="13.0.06"
 [[ "${CARCH}" == "i686" ]] && _EMU_ARCH="i386"
 
 pkgname="grub"
-pkgver=2.04
-pkgrel=22
+pkgver=2.06
+pkgrel=1
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686')
 url="https://www.gnu.org/software/grub/"
