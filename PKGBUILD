@@ -24,15 +24,17 @@ _UNIFONT_VER="13.0.06"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
+[[ "${CARCH}" == 'aarch64' ]] && _EFI_ARCH='aarch64'
 
 [[ "${CARCH}" == "x86_64" ]] && _EMU_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EMU_ARCH="i386"
+[[ "${CARCH}" == 'aarch64' ]] && _EMU_ARCH='aarch64'
 
 pkgname="grub"
 pkgver=2.06
 pkgrel=1
 pkgdesc="GNU GRand Unified Bootloader (2)"
-arch=('x86_64' 'i686')
+arch=('x86_64' 'i686' 'aarch64')
 url="https://www.gnu.org/software/grub/"
 license=('GPL3')
 backup=('etc/default/grub'
