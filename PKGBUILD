@@ -1,13 +1,12 @@
 # Maintainer: Philip Müller <philm[at]manjaro[dot]org>
-# Maintainer: Helmut Stult <helmut[at]manjaro[dot]org>
 # Maintainer: Stefano Capitani <stefano[at]manjaro[dot]org>
+# Contributor: Helmut Stult
 
 # Arch credits:
 # Based on the file created for Arch Linux by:
-# Contributor: Christian Hesse <mail@eworm.de>
-# Contributor: Llewelyn Trahaearn <WoefulDerelict [at] GMail [dot] com>
-# Contributor: Tobias Powalowski <tpowa [at] archlinux [dot] org>
-# Contributor: Ronald van Haren <ronald [at] archlinux [dot] org>
+# Contributor : Christian Hesse <mail@eworm.de>
+# Contributor : Ronald van Haren <ronald.archlinux.org>
+# Contributor: Tobias Powalowski <tpowa@archlinux.org>
 # Contributor: Keshav Amburay <(the ddoott ridikulus ddoott rat) (aatt) (gemmaeiil) (ddoott) (ccoomm)>
 
 ## "1" to enable IA32-EFI build in Arch x86_64, "0" to disable
@@ -20,7 +19,7 @@ _GRUB_INT_VER="2.06"
 _GRUB_COMMIT="ae94b97be2b81b625d6af6654d3ed79078b50ff6"
 _GRUB_EXTRAS_COMMIT="8a245d5c1800627af4cefa99162a89c7a46d8842"
 _GNULIB_COMMIT="4480dd39f2f8e59576dc03727d004ae996e26d6c"
-_UNIFONT_VER="13.0.06"
+_UNIFONT_VER="14.0.01"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
@@ -32,7 +31,7 @@ _UNIFONT_VER="13.0.06"
 
 pkgname="grub"
 pkgver=2.06
-pkgrel=1
+pkgrel=2
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686' 'aarch64')
 url="https://www.gnu.org/software/grub/"
@@ -89,7 +88,7 @@ source=("grub::git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMI
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
-            'b7668a5d498972dc4981250c49f83601babce797be19b4fdd0f2f1c6cfbd0fc5'
+            '391d194f6307fcd0915daafd360509a734e26f3e4013e63d47deb2530d59e66e'
             'SKIP'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             '4f91fda4262115a51fd8fdd7375160b8308b504b31bd6f1be6d2048d5e4a6ad2'
@@ -346,6 +345,12 @@ _package_grub-efi() {
 	rm -f "${pkgdir}/usr/lib/grub/${_EFI_ARCH}-efi"/*.module || true
 	rm -f "${pkgdir}/usr/lib/grub/${_EFI_ARCH}-efi"/*.image || true
 	rm -f "${pkgdir}/usr/lib/grub/${_EFI_ARCH}-efi"/{kernel.exec,gdb_grub,gmodule.pl} || true
+
+	_sbat_file="${pkgdir}/usr/share/grub/sbat.csv"
+	touch "${_sbat_file}"
+	echo "sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md" >> "${_sbat_file}"
+	echo "grub,1,Free Software Foundation,grub,${pkgver},https//www.gnu.org/software/grub/" >> "${_sbat_file}"
+	echo "grub.manjaro,1,Manjaro Linux,grub,${pkgver},https://gitlab.manjaro.org/packages/core/grub/" >> "${_sbat_file}"
 }
 
 _package_grub-emu() {
