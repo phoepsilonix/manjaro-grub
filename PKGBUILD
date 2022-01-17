@@ -31,7 +31,7 @@ _UNIFONT_VER="14.0.01"
 
 pkgname="grub"
 pkgver=2.06
-pkgrel=2
+pkgrel=3
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686' 'aarch64')
 url="https://www.gnu.org/software/grub/"
@@ -52,6 +52,7 @@ depends=('sh' 'xz' 'gettext' 'device-mapper')
 optdepends=('freetype2: For grub-mkfont usage'
             'fuse2: For grub-mount usage'
             'dosfstools: For grub-mkrescue FAT FS and EFI support'
+            'lzop: For grub-mkrescue LZO support'
             'efibootmgr: For grub-install EFI support'
             'libisoburn: Provides xorriso for generating grub rescue iso using grub-mkrescue'
             'os-prober: To detect other OSes when generating grub.cfg in BIOS systems'
@@ -105,6 +106,8 @@ sha256sums=('SKIP'
             'a97ddf6694fa5070463a2d3f997205436a63fbe125071dd1bef0d59999adff70')
             
 _backports=(
+	# fs/xfs: Fix unreadable filesystem with v4 superblock
+	'a4b495520e4dc41a896a8b916a64eda9970c50ea'
 )
 
 _configure_options=(
