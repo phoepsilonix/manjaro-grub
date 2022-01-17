@@ -31,7 +31,7 @@ _UNIFONT_VER="14.0.01"
 
 pkgname="grub"
 pkgver=2.06
-pkgrel=3
+pkgrel=4
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686' 'aarch64')
 url="https://www.gnu.org/software/grub/"
@@ -386,4 +386,7 @@ package() {
 
 	echo "Package grub bios stuff..."
 	_package_grub-common_and_bios
+
+	# Don't overwrite /usr/share/info/dir
+	rm "$pkgdir/usr/share/info/dir"
 }
