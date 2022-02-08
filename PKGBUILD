@@ -18,7 +18,6 @@ _GRUB_EMU_BUILD="1"
 _GRUB_INT_VER="2.06"
 _GRUB_COMMIT="ae94b97be2b81b625d6af6654d3ed79078b50ff6"
 _GRUB_EXTRAS_COMMIT="8a245d5c1800627af4cefa99162a89c7a46d8842"
-_GNULIB_COMMIT="4480dd39f2f8e59576dc03727d004ae996e26d6c"
 _UNIFONT_VER="14.0.01"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
@@ -68,9 +67,9 @@ validpgpkeys=('E53D497F3FA42AD8C9B4D1E835A93B74E82E4209'  # Vladimir 'phcoder' S
               'BE5C23209ACDDACEB20DB0A28C8189F1988C2166'  # Daniel Kiper <dkiper@net-space.pl>
               '95D2E9AB8740D8046387FD151A09227B1F435A33') # Paul Hardy <unifoundry@unifoundry.com>            
             
-source=("grub::git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMIT"
-        "grub-extras::git+https://git.savannah.gnu.org/git/grub-extras.git#commit=$_GRUB_EXTRAS_COMMIT"
-        "gnulib::git+https://git.savannah.gnu.org/git/gnulib.git#commit=$_GNULIB_COMMIT"
+source=("git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMIT"
+        "git+https://git.savannah.gnu.org/git/grub-extras.git#commit=$_GRUB_EXTRAS_COMMIT"
+        'git+https://git.savannah.gnu.org/git/gnulib.git'
         "https://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"{,.sig}
         'grub-export-path.patch'
         'grub-add-GRUB_COLOR_variables.patch'
