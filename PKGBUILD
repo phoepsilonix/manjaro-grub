@@ -16,9 +16,9 @@ _IA32_EFI_IN_ARCH_X64="1"
 _GRUB_EMU_BUILD="1"
 
 _GRUB_INT_VER="2.06"
-_GRUB_COMMIT="ae94b97be2b81b625d6af6654d3ed79078b50ff6"
+_GRUB_COMMIT="53c5000739db114c229fe69ec3d4b76b92441098" # git rev-parse grub-${pkgver}
 _GRUB_EXTRAS_COMMIT="8a245d5c1800627af4cefa99162a89c7a46d8842"
-_UNIFONT_VER="14.0.01"
+_UNIFONT_VER="14.0.02"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
@@ -30,7 +30,7 @@ _UNIFONT_VER="14.0.01"
 
 pkgname="grub"
 pkgver=2.06
-pkgrel=4
+pkgrel=5
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686' 'aarch64')
 url="https://www.gnu.org/software/grub/"
@@ -67,7 +67,7 @@ validpgpkeys=('E53D497F3FA42AD8C9B4D1E835A93B74E82E4209'  # Vladimir 'phcoder' S
               'BE5C23209ACDDACEB20DB0A28C8189F1988C2166'  # Daniel Kiper <dkiper@net-space.pl>
               '95D2E9AB8740D8046387FD151A09227B1F435A33') # Paul Hardy <unifoundry@unifoundry.com>            
             
-source=("git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMIT"
+source=("git+https://git.savannah.gnu.org/git/grub.git#tag=$_GRUB_COMMIT?signed"
         "git+https://git.savannah.gnu.org/git/grub-extras.git#commit=$_GRUB_EXTRAS_COMMIT"
         'git+https://git.savannah.gnu.org/git/gnulib.git'
         "https://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"{,.sig}
@@ -80,6 +80,7 @@ source=("git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMIT"
         '0003-grub-quick-boot.patch'
         'background.png'
         'grub.default'
+        'sbat.csv'
         'grub.cfg'
         'update-grub'
         'grub-set-bootflag'
@@ -88,7 +89,7 @@ source=("git+https://git.savannah.gnu.org/git/grub.git#commit=$_GRUB_COMMIT"
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
-            '391d194f6307fcd0915daafd360509a734e26f3e4013e63d47deb2530d59e66e'
+            '5b314364d23143755a4b11b641a953c07837f48fefcc7454318e334265e4974b'
             'SKIP'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             '4f91fda4262115a51fd8fdd7375160b8308b504b31bd6f1be6d2048d5e4a6ad2'
@@ -99,6 +100,7 @@ sha256sums=('SKIP'
             '4cae03685c238a60169f1134165ff010faebddb5b3218d92d32e0b6729b27656'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
             'c9a22df3e437599851e3c3e5725b853e8cd36728ae8fce8af5e693f4ce7c8e44'
+            '89bbfe11cec0a07f5b0f170cde35abcc4cbf16d8db7b4920435525f71527fc10'
             '7fc95d49c0febe98a76e56b606a280565cb736580adecf163bc6b5aca8e7cbd8'
             'a6a3e6a7c2380aff66b6096d478aed790c927ceed551ce52c0c454191eb4e3aa'
             '2eb199f510340cf8d190ba2fa80d5bdcf1e2e7ca53e8011af2ee62ea3b8dd03b'
@@ -107,6 +109,9 @@ sha256sums=('SKIP'
 _backports=(
 	# fs/xfs: Fix unreadable filesystem with v4 superblock
 	'a4b495520e4dc41a896a8b916a64eda9970c50ea'
+
+	# fs/btrfs: Use full btrfs bootloader area
+	'b0f06a81c6f31b6fa20be67a96b6683bba8210c9'
 )
 
 _configure_options=(
@@ -176,7 +181,7 @@ prepare() {
 	echo "Bump Version to ${pkgver}~${pkgrel}~manjaro"
 	sed -i -e "s|${_GRUB_INT_VER}|${pkgver}~${pkgrel}~manjaro|g" "configure.ac"
 
-	echo "Pull in latest language files"
+	echo "Pull in latest language files..."
 	./linguas.sh
 
 	echo "Avoid problem with unifont during compile of grub..."
@@ -348,11 +353,7 @@ _package_grub-efi() {
 	rm -f "${pkgdir}/usr/lib/grub/${_EFI_ARCH}-efi"/*.image || true
 	rm -f "${pkgdir}/usr/lib/grub/${_EFI_ARCH}-efi"/{kernel.exec,gdb_grub,gmodule.pl} || true
 
-	_sbat_file="${pkgdir}/usr/share/grub/sbat.csv"
-	touch "${_sbat_file}"
-	echo "sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md" >> "${_sbat_file}"
-	echo "grub,1,Free Software Foundation,grub,${pkgver},https//www.gnu.org/software/grub/" >> "${_sbat_file}"
-	echo "grub.manjaro,1,Manjaro Linux,grub,${pkgver},https://gitlab.manjaro.org/packages/core/grub/" >> "${_sbat_file}"
+	sed -e "s/%PKGVER%/${pkgver}/" < "${srcdir}/sbat.csv" > "${pkgdir}/usr/share/grub/sbat.csv"
 }
 
 _package_grub-emu() {
