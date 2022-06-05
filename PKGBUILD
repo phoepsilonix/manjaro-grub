@@ -18,7 +18,7 @@ _GRUB_EMU_BUILD="1"
 _GRUB_INT_VER="2.06"
 _GRUB_COMMIT="53c5000739db114c229fe69ec3d4b76b92441098" # git rev-parse grub-${pkgver}
 _GRUB_EXTRAS_COMMIT="8a245d5c1800627af4cefa99162a89c7a46d8842"
-_UNIFONT_VER="14.0.03"
+_UNIFONT_VER="14.0.04"
 
 [[ "${CARCH}" == "x86_64" ]] && _EFI_ARCH="x86_64"
 [[ "${CARCH}" == "i686" ]] && _EFI_ARCH="i386"
@@ -30,7 +30,7 @@ _UNIFONT_VER="14.0.03"
 
 pkgname="grub"
 pkgver=2.06
-pkgrel=6
+pkgrel=7
 pkgdesc="GNU GRand Unified Bootloader (2)"
 arch=('x86_64' 'i686' 'aarch64')
 url="https://www.gnu.org/software/grub/"
@@ -70,7 +70,7 @@ validpgpkeys=('E53D497F3FA42AD8C9B4D1E835A93B74E82E4209'  # Vladimir 'phcoder' S
 source=("git+https://git.savannah.gnu.org/git/grub.git#tag=$_GRUB_COMMIT?signed"
         "git+https://git.savannah.gnu.org/git/grub-extras.git#commit=$_GRUB_EXTRAS_COMMIT"
         'git+https://git.savannah.gnu.org/git/gnulib.git'
-        "https://ftp.gnu.org/gnu/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"{,.sig}
+        "https://ftpmirror.gnu.org/unifont/unifont-${_UNIFONT_VER}/unifont-${_UNIFONT_VER}.bdf.gz"{,.sig}
         'grub-export-path.patch'
         'grub-add-GRUB_COLOR_variables.patch'
         'grub-manjaro-modifications.patch'
@@ -89,7 +89,7 @@ source=("git+https://git.savannah.gnu.org/git/grub.git#tag=$_GRUB_COMMIT?signed"
 sha256sums=('SKIP'
             'SKIP'
             'SKIP'
-            '6323f50b1b0b50224988e5f7aec2bd26bd78563bbb7e05c417dc5b7b4a06acb5'
+            '0bad2b8a46fcc4864c7b4cee4072653a58b9f36e2f54a5a395c7d6dc97766526'
             'SKIP'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             '4f91fda4262115a51fd8fdd7375160b8308b504b31bd6f1be6d2048d5e4a6ad2'
