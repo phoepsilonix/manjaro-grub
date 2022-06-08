@@ -296,17 +296,17 @@ diff --git a/grub-core/normal/menu.c b/grub-core/normal/menu.c
      {
        grub_printf ("  ");
        grub_printf_ (N_("Booting `%s'"), entry->title);
-@@ -879,6 +885,9 @@ show_menu (grub_menu_t menu, int nested, int autobooted)
-       int boot_entry;
+@@ -868,6 +868,9 @@ show_menu (grub_menu_t menu, int nested,
        grub_menu_entry_t e;
        int auto_boot;
+       int notify_boot;
 +#ifdef QUIET_BOOT
 +      int initial_timeout = grub_menu_get_timeout ();
 +#endif
  
-       boot_entry = run_menu (menu, nested, &auto_boot);
+       boot_entry = run_menu (menu, nested, &auto_boot, &notify_boot);
        if (boot_entry < 0)
-@@ -888,7 +897,11 @@ show_menu (grub_menu_t menu, int nested, int autobooted)
+@@ -877,7 +880,11 @@ show_menu (grub_menu_t menu, int nested,
        if (! e)
  	continue; /* Menu is empty.  */
  
