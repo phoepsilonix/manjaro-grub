@@ -292,7 +292,7 @@ diff --git a/grub-core/normal/menu.c b/grub-core/normal/menu.c
    int *notify_boot = userdata;
  
 -  if (*notify_boot)
-+  if (*notify_boot || !defined QUIET_BOOT)
++  if (*notify_boot) || !defined(QUIET_BOOT)
      {
        grub_printf ("  ");
        grub_printf_ (N_("Booting `%s'"), entry->title);
