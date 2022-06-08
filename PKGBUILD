@@ -67,7 +67,7 @@ validpgpkeys=('E53D497F3FA42AD8C9B4D1E835A93B74E82E4209'  # Vladimir 'phcoder' S
 source=("git+https://git.savannah.gnu.org/git/grub.git#commit=${_commit}"
         'git+https://git.savannah.gnu.org/git/gnulib.git'
         "https://ftp.gnu.org/gnu/unifont/unifont-${_unifont_ver}/unifont-${_unifont_ver}.bdf.gz"{,.sig}
-        "https://git.savannah.gnu.org/git/grub-extras.git#commit=${_extras_commit}"
+        "git+https://git.savannah.gnu.org/git/grub-extras.git#commit=${_extras_commit}"
         '0001-00_header-add-GRUB_COLOR_-variables.patch'
         'grub-export-path.patch'
         'grub-manjaro-modifications.patch'
@@ -87,7 +87,7 @@ sha256sums=('SKIP'
             'SKIP'
             '0bad2b8a46fcc4864c7b4cee4072653a58b9f36e2f54a5a395c7d6dc97766526'
             'SKIP'
-            '2e99ef7d97d9cd747a6be0d0861b081d966b19d49120e4aa28053962b9c72d15'
+            'SKIP'
             '5dee6628c48eef79812bb9e86ee772068d85e7fcebbd2b2b8d1e19d24eda9dab'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             '3ab7ca730c62c4c6b9fff371a11c02c02ed38a587573b1b9308bf162ad646ce8'
