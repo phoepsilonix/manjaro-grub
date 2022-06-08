@@ -203,12 +203,6 @@ _build_grub-common_and_bios() {
 	cp -r "${srcdir}/grub/" "${srcdir}/grub-bios/"
 	cd "${srcdir}/grub-bios/"
 
-	echo "Add the grub-extra sources for bios build..."
-	install -d "${srcdir}/grub-bios/grub-extras"
-	cp -r "${srcdir}/grub-extras/915resolution" \
-		"${srcdir}/grub-bios/grub-extras/915resolution"
-	export GRUB_CONTRIB="${srcdir}/grub-bios/grub-extras/"
-
 	echo "Unset all compiler FLAGS for bios build..."
 	unset CFLAGS
 	unset CPPFLAGS
