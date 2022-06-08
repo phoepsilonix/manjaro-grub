@@ -155,8 +155,8 @@ prepare() {
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
 
 	echo "Add Ubuntu patches"
-	#echo "0001"
-	#patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"
+	echo "0001"
+	patch -Np1 -i "${srcdir}/0001-grub-maybe_quiet.patch"
 	echo "002"
 	patch -Np1 -i "${srcdir}/0002-grub-gettext_quiet.patch"
 	echo "0003"
