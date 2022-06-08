@@ -287,15 +287,21 @@ diff --git a/grub-core/normal/main.c b/grub-core/normal/main.c
 diff --git a/grub-core/normal/menu.c b/grub-core/normal/menu.c
 --- a/grub-core/normal/menu.c
 +++ b/grub-core/normal/menu.c
-@@ -814,7 +814,7 @@ notify_booting (grub_menu_entry_t entry,
+@@ -814,12 +814,14 @@ notify_booting (grub_menu_entry_t entry,
  {
    int *notify_boot = userdata;
  
--  if (*notify_boot)
-+  if (*notify_boot) || !defined(QUIET_BOOT)
++#ifndef QUIET_BOOT
+   if (*notify_boot)
      {
        grub_printf ("  ");
        grub_printf_ (N_("Booting `%s'"), entry->title);
+       grub_printf ("\n\n");
+     }
++#endif
+ }
+ 
+ /* Callback invoked when a default menu entry executed because of a timeout
 @@ -868,6 +868,9 @@ show_menu (grub_menu_t menu, int nested,
        grub_menu_entry_t e;
        int auto_boot;
