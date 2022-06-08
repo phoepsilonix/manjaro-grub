@@ -26,6 +26,7 @@ _GRUB_EMU_BUILD="1"
 pkgname=grub
 pkgdesc="GNU GRand Unified Bootloader (2)"
 _commit='2f4430cc0a44fd8c8aa7aee5c51887667ad3d6c3'
+_extras_commit='8a245d5c1800627af4cefa99162a89c7a46d8842'
 _unifont_ver='14.0.04'
 _pkgver=2.06.r261.g2f4430cc0
 pkgver=${_pkgver/-/}
@@ -66,6 +67,7 @@ validpgpkeys=('E53D497F3FA42AD8C9B4D1E835A93B74E82E4209'  # Vladimir 'phcoder' S
 source=("git+https://git.savannah.gnu.org/git/grub.git#commit=${_commit}"
         'git+https://git.savannah.gnu.org/git/gnulib.git'
         "https://ftp.gnu.org/gnu/unifont/unifont-${_unifont_ver}/unifont-${_unifont_ver}.bdf.gz"{,.sig}
+        "https://git.savannah.gnu.org/git/grub-extras.git#commit=${_extras_commit}"
         '0001-00_header-add-GRUB_COLOR_-variables.patch'
         'grub-export-path.patch'
         'grub-manjaro-modifications.patch'
@@ -85,11 +87,12 @@ sha256sums=('SKIP'
             'SKIP'
             '0bad2b8a46fcc4864c7b4cee4072653a58b9f36e2f54a5a395c7d6dc97766526'
             'SKIP'
+            '2e99ef7d97d9cd747a6be0d0861b081d966b19d49120e4aa28053962b9c72d15'
             '5dee6628c48eef79812bb9e86ee772068d85e7fcebbd2b2b8d1e19d24eda9dab'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             '3ab7ca730c62c4c6b9fff371a11c02c02ed38a587573b1b9308bf162ad646ce8'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
-            'cfdbe5279bd95bd7a524eec2615d61d6c4e85b6bb710f4939d85255565b9b7bb'
+            '4a0a90ae29c97b395c0610f6d78f3d39d57a7a4b41647ace9bcce4b864e19497'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
             '4cae03685c238a60169f1134165ff010faebddb5b3218d92d32e0b6729b27656'
             '01264c247283b7bbdef65d7646541c022440ddaf54f8eaf5aeb3a02eb98b4dd8'
