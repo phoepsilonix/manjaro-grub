@@ -3,6 +3,8 @@ From: Colin Watson <cjwatson@ubuntu.com>
 Date: Mon, 13 Jan 2014 12:13:26 +0000
 Subject: Add configure option to reduce visual clutter at boot time
 
+Modified for Manjaro by: Philip Müller <philm@manjaro.org>
+
 If this option is enabled, then do all of the following:
 
 Don't display introductory message about line editing unless we're
@@ -202,7 +204,7 @@ diff --git a/grub-core/boot/i386/pc/diskboot.S b/grub-core/boot/i386/pc/diskboot
 diff --git a/grub-core/kern/main.c b/grub-core/kern/main.c
 --- a/grub-core/kern/main.c
 +++ b/grub-core/kern/main.c
-@@ -264,15 +264,25 @@ reclaim_module_space (void)
+@@ -265,13 +265,23 @@ reclaim_module_space (void)
  void __attribute__ ((noreturn))
  grub_main (void)
  {
@@ -215,20 +217,19 @@ diff --git a/grub-core/kern/main.c b/grub-core/kern/main.c
  
    grub_boot_time ("After machine init.");
  
-+#ifdef QUIET_BOOT
 +  /* Disable the cursor until we need it.  */
++#ifdef QUIET_BOOT
 +  FOR_ACTIVE_TERM_OUTPUTS(term)
 +    grub_term_setcursor (term, 0);
-+#else
++#endif
++
+   /* This breaks flicker-free boot on EFI systems, so disable it there. */
+-#ifndef GRUB_MACHINE_EFI
++#if !defined GRUB_MACHINE_EFI || !defined QUIET_BOOT
    /* Hello.  */
    grub_setcolorstate (GRUB_TERM_COLOR_HIGHLIGHT);
    grub_printf ("Welcome to GRUB!\n\n");
-   grub_setcolorstate (GRUB_TERM_COLOR_STANDARD);
-+#endif
- 
-   grub_load_config ();
- 
-@@ -308,5 +318,12 @@ grub_main (void)
+@@ -315,5 +325,12 @@ grub_main (void)
    grub_boot_time ("After execution of embedded config. Attempt to go to normal mode");
  
    grub_load_normal_mode ();
