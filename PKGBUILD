@@ -54,8 +54,8 @@ optdepends=('freetype2: For grub-mkfont usage'
             'mtools: For grub-mkrescue FAT FS support')
 
 if [[ "${_GRUB_EMU_BUILD}" == "1" ]]; then
-    makedepends+=('libusbx' 'sdl')
-    optdepends+=('libusbx: For grub-emu USB support'
+    makedepends+=('libusb' 'sdl')
+    optdepends+=('libusb: For grub-emu USB support'
                  'sdl: For grub-emu SDL support')
 fi
 
