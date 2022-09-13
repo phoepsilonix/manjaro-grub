@@ -26,10 +26,10 @@ _GRUB_EMU_BUILD="1"
 pkgname=grub
 pkgdesc="GNU GRand Unified Bootloader (2)"
 _commit='2f4430cc0a44fd8c8aa7aee5c51887667ad3d6c3'
-_unifont_ver='14.0.04'
+_unifont_ver='15.0.01'
 _pkgver=2.06.r261.g2f4430cc0
 pkgver=${_pkgver/-/}
-pkgrel=1
+pkgrel=2
 arch=('x86_64' 'i686' 'aarch64')
 url='https://www.gnu.org/software/grub/'
 license=('GPL3')
@@ -83,7 +83,7 @@ source=("git+https://git.savannah.gnu.org/git/grub.git#commit=${_commit}"
 
 sha256sums=('SKIP'
             'SKIP'
-            '0bad2b8a46fcc4864c7b4cee4072653a58b9f36e2f54a5a395c7d6dc97766526'
+            '1fddba900a36b8a067bf2177b05c4a2482a0f7ca1545cf531c03509f47ce1590'
             'SKIP'
             '5dee6628c48eef79812bb9e86ee772068d85e7fcebbd2b2b8d1e19d24eda9dab'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
