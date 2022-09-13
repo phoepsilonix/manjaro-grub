@@ -25,9 +25,9 @@ _GRUB_EMU_BUILD="1"
 
 pkgname=grub
 pkgdesc="GNU GRand Unified Bootloader (2)"
-_commit='d9b4638c50b16d4722e66d334e2c1a674b4a45cc'
-_pkgver=2.06.r322.gd9b4638c5
+_commit='2f4430cc0a44fd8c8aa7aee5c51887667ad3d6c3'
 _unifont_ver='14.0.04'
+_pkgver=2.06.r261.g2f4430cc0
 pkgver=${_pkgver/-/}
 pkgrel=1
 arch=('x86_64' 'i686' 'aarch64')
@@ -87,7 +87,7 @@ sha256sums=('SKIP'
             'SKIP'
             '5dee6628c48eef79812bb9e86ee772068d85e7fcebbd2b2b8d1e19d24eda9dab'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
-            '9c4c2b937e56f9fe75062dec40ddddd752e78e5614a029d9d149bb33d6f083c1'
+            '3ab7ca730c62c4c6b9fff371a11c02c02ed38a587573b1b9308bf162ad646ce8'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
             'a522514edb264374c8cce08998c5586ffc832091c5db1be7bf8b21078223e2a6'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
@@ -374,3 +374,4 @@ package() {
 	# Don't overwrite /usr/share/info/dir
 	rm "$pkgdir/usr/share/info/dir"
 }
+
