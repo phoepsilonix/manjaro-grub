@@ -70,6 +70,7 @@ source=("git+https://git.savannah.gnu.org/git/grub.git#commit=${_commit}"
         'grub-export-path.patch'
         'grub-manjaro-modifications.patch'
         'grub-use-efivarfs.patch'
+        'fgrep-is-obsolescent-using-grep-F.patch'
         '0001-grub-maybe_quiet.patch'
         '0002-grub-gettext_quiet.patch'
         '0003-grub-quick-boot.patch'
@@ -88,6 +89,7 @@ sha256sums=('SKIP'
             '5dee6628c48eef79812bb9e86ee772068d85e7fcebbd2b2b8d1e19d24eda9dab'
             '63c611189a60d68c6ae094f2ced91ac576b3921b7fd2e75a551c2dc6baefc35e'
             '40f23e1a36fd4f9821d63bdec0c4334aeb3ceddde15857a21c97c0002fd4900f'
+            'ddfda7c170fe386fa340440178096260ae72b5cbab23f2566634b7c54f812a07'
             '20b2b6e7f501596b5cce6ffa05906980427f760c03d308d0e045cf2ecf47bb0e'
             'a522514edb264374c8cce08998c5586ffc832091c5db1be7bf8b21078223e2a6'
             '39d7843dfe1e10ead912a81be370813b8621794a7967b3cc5e4d4188b5bf7264'
@@ -154,6 +156,9 @@ prepare() {
 
 	echo "Patch to include Manjaro Linux Modifications"
 	patch -Np1 -i "${srcdir}/grub-manjaro-modifications.patch"
+
+	echo "Patch to fgrep is obsolescent using grep -F"
+	patch -Np1 -i "${srcdir}/fgrep-is-obsolescent-using-grep-F.patch"
 
 	echo "Add Ubuntu patches"
 	echo "0001"
